@@ -4,7 +4,7 @@ A restaurant taste model built from Beli rankings and Yelp review text. It learn
 
 It works for any number of people. Two friends' Toronto lists (Wael and Z) are the test case.
 
-**Start here:** open [`app/index.html`](app/index.html) in a browser. To review the project stage by stage, read [`PIPELINE.md`](PIPELINE.md) (or the app's Pipeline tab).
+**[Open the interactive app](https://wael6954.github.io/taste-test/)**: picks, taste charts and the 3D views, in your browser with nothing to download. To review the project stage by stage, read [`PIPELINE.md`](PIPELINE.md) (or the app's Pipeline tab).
 
 ## What it found
 
@@ -28,6 +28,7 @@ Ranking places the model has not seen (5-fold, repeated 5 times; Spearman correl
 ## Layout
 
 ```
+index.html       redirects to app/ so GitHub Pages opens the app
 app/              the web app (single HTML file)
 PIPELINE.md       stage-by-stage review guide: inputs, outputs, checks, decisions, open questions
 pipeline/         all code; see pipeline/README.md for the run order
