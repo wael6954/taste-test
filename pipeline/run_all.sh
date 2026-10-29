@@ -21,3 +21,4 @@ python app_data.py && python app_data.py --private
 python stages.py ../PIPELINE.md                                #     review guide (also feeds the app's Pipeline tab)
 python build_app.py --private
 python export_results.py
+python make_figures.py

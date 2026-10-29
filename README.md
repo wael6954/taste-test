@@ -10,18 +10,20 @@ It works for any number of people. Two friends' Toronto lists (Wael and Z) are t
 
 Ranking places the model has not seen (5-fold, repeated 5 times; Spearman correlation between predicted and actual rank):
 
-| Method | Wael (134 places) | Z (98 places) |
-|---|---|---|
-| **Aspect sentiment + talk rate (ridge)** | **0.26** | **0.38** |
-| Nearest neighbours on review features | 0.22 | 0.27 |
-| Overlapping clusters (GMM) | 0.16 | 0.11 |
-| Cuisine average | 0.04 | −0.13 |
-| Random guessing, 95th percentile | 0.17 | 0.20 |
+![Held-out Spearman for seven methods, per person, against the random-guessing line. Aspect sentiment plus talk rate is best: 0.26 for Wael, 0.38 for Z.](docs/img/accuracy.png)
 
 - The winning model passes a permutation test (200 shuffles, p < 0.01 for both).
 - How much reviewers praise the **food** is the strongest single signal for both (ρ ≈ 0.3, holds within cuisine). Beyond that, Wael tracks **service** and Z tracks **places people say are worth the wait**.
+
+![Correlation between each review aspect and rank, for Wael and Z. Food, menu and would-return rise for both; service stands out for Wael and worth-the-wait for Z.](docs/img/drivers.png)
+
 - Cuisine alone predicts nothing. Clusters describe taste but do not predict it on their own.
+
+![Six groups of restaurants found from review language alone, with each person's average percentile for the places in each group. Sit-down places with good ambience and service rate highest for both; complaint-heavy places rate lowest.](docs/img/kinds.png)
+
 - New restaurants are scored through a frozen topic model. Their predicted scores barely correlate with Yelp stars, so the picks are not just the crowd favourites.
+
+![The top 15 new places for both people under the average-without-misery rule, with each person's predicted percentile.](docs/img/picks.png)
 
 ## Layout
 
@@ -32,7 +34,7 @@ pipeline/         all code; see pipeline/README.md for the run order
   browser/        JavaScript run in a yelp.ca tab: matching, review pulls, GPU embeddings, new places
   lists/          cleaning the OCR'd Beli lists and scoring Yelp matches
 results/          shareable outputs grouped by question (validation, taste, topics, recommendations, new places)
-docs/             methodology, decisions log, opinion-unit test
+docs/             methodology, decisions log, opinion-unit test, img/ (README figures from pipeline/make_figures.py)
 ```
 
 ## Running it

@@ -87,7 +87,8 @@ svg .sm{font:11px var(--sans);font-variant-numeric:tabular-nums;fill:var(--ink3)
 .cc{background:var(--fill);border-radius:var(--r-m);padding:var(--s4);min-width:0}
 .cc p{margin:4px 0;font-size:13px;color:var(--ink2)}
 .cc .m{font-size:12.5px;color:var(--ink3)}
-.plot{width:100%;height:min(70vh,620px);min-height:400px}
+.plot{width:100%;height:min(75vh,680px);min-height:400px}
+button.btn[aria-pressed=true]{background:var(--raise);box-shadow:var(--shadow)}
 .read{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--s4) var(--s5);margin-top:var(--s4);font-size:13.5px;color:var(--ink2)}
 .read b{color:var(--ink);display:block;font-weight:600;margin-bottom:2px}
 .ramp{display:inline-block;width:96px;height:6px;border-radius:3px;vertical-align:1px;margin:0 6px;background:linear-gradient(90deg,var(--lo),var(--mid),var(--hi))}
@@ -186,8 +187,10 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 <section class="view" id="v-space" hidden>
  <div class="card">
   <div class="head"><div><h2 id="s3title">Where each restaurant sits</h2><p class="sub" id="s3sub"></p></div>
-   <div class="ctrl" style="margin:0"><div class="seg" id="s3view"><button data-v="space" aria-pressed="true">Taste space</button><button data-v="land" aria-pressed="false">Landscape</button><button data-v="gal" aria-pressed="false">Review galaxy</button></div>
-   <div class="seg" id="s3who"><button data-v="wael" aria-pressed="true">Wael</button><button data-v="zed" aria-pressed="false">Z</button><button data-v="both" aria-pressed="false">Both</button></div></div></div>
+   <div class="ctrl" style="margin:0"><div class="seg" id="s3view"><button data-v="space" aria-pressed="true">Taste space</button><button data-v="land" aria-pressed="false">Landscape</button><button data-v="duo" aria-pressed="false">Wael vs Z</button><button data-v="gal" aria-pressed="false">Review galaxy</button></div>
+   <div class="seg" id="s3who"><button data-v="wael" aria-pressed="true">Wael</button><button data-v="zed" aria-pressed="false">Z</button><button data-v="both" aria-pressed="false">Both</button></div>
+   <div class="seg" id="s3col" hidden><button data-v="aspect" aria-pressed="true">By aspect</button><button data-v="pol" aria-pressed="false">By tone</button></div>
+   <button class="btn" id="spin" aria-pressed="false">Rotate</button></div></div>
   <div id="plot3" class="plot"></div>
   <div class="legend" id="leg3"></div>
   <div class="read" id="read3"></div>
@@ -218,7 +221,6 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
  </div>
 </section>
 
-<p class="foot">Built from Beli lists and public Yelp reviews. Yelp stars are shown only as a check; the model never sees them. No review text is published here.</p>
 </div>
 <div class="tip" id="tip"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.27.0/plotly.min.js"></script>
@@ -350,24 +352,49 @@ function drawDrivers() {
 }
 
 // ---------- 3D ----------
-const font = () => ({ family: 'Inter, system-ui, sans-serif', color: css('--ink2'), size: 12 });
+const SANS = '-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif';
+const font = () => ({ family: SANS, color: css('--ink2'), size: 12 });
 const axis = (title, extra = {}) => Object.assign({ title: { text: title, font: { size: 12, color: css('--ink') } }, gridcolor: css('--grid'), zerolinecolor: css('--ink3'), showbackground: true, backgroundcolor: css('--scene'), tickfont: { size: 10, color: css('--ink3') }, showspikes: false }, extra);
 const cfg = { displaylogo: false, responsive: true, modeBarButtonsToRemove: ['toImage', 'resetCameraLastSave3d'] };
 const ramp = () => [[0, css('--lo')], [0.5, css('--mid')], [1, css('--hi')]];
-const layout = (x, y, z, eye) => ({ paper_bgcolor: 'rgba(0,0,0,0)', font: font(), margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false,
-  hoverlabel: { bgcolor: css('--ink'), font: { color: css('--card'), family: 'Inter' }, bordercolor: css('--ink') },
-  scene: { xaxis: axis(x), yaxis: axis(y), zaxis: axis(z), camera: { eye: eye || { x: 1.55, y: 1.45, z: 0.85 } }, aspectmode: 'cube' } });
-let v3 = 'space', w3 = 'wael';
+let baseEye = { x: 1.55, y: 1.45, z: 0.85 }, spin = false, spinAng = 0, spinRaf = 0, lastT = 0;
+const layout = (x, y, z, eye) => {
+  baseEye = eye || { x: 1.55, y: 1.45, z: 0.85 }; spinAng = 0;
+  return { paper_bgcolor: 'rgba(0,0,0,0)', font: font(), margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false,
+    hoverlabel: { bgcolor: css('--ink'), font: { color: css('--card'), family: SANS }, bordercolor: css('--ink') },
+    scene: { xaxis: axis(x), yaxis: axis(y), zaxis: axis(z), camera: { eye: baseEye }, aspectmode: 'cube' } };
+};
+// Slow orbit around the vertical axis. Opt-in, stops on any drag.
+function spinStep(t) {
+  if (!spin || $('#v-space').hidden) { spinRaf = 0; return; }
+  if (t - lastT > 33) {
+    spinAng += Math.min(100, t - lastT) * 0.00018; lastT = t;
+    const r = Math.hypot(baseEye.x, baseEye.y), a0 = Math.atan2(baseEye.y, baseEye.x);
+    Plotly.relayout('plot3', { 'scene.camera.eye': { x: r * Math.cos(a0 + spinAng), y: r * Math.sin(a0 + spinAng), z: baseEye.z } });
+  }
+  spinRaf = requestAnimationFrame(spinStep);
+}
+function setSpin(on) {
+  spin = on; $('#spin').setAttribute('aria-pressed', on); $('#spin').textContent = on ? 'Stop rotating' : 'Rotate';
+  if (on) { const e = $('#plot3').layout && $('#plot3').layout.scene && $('#plot3').layout.scene.camera && $('#plot3').layout.scene.camera.eye; if (e) baseEye = { x: e.x, y: e.y, z: e.z }; spinAng = 0; lastT = 0; if (!spinRaf) spinRaf = requestAnimationFrame(spinStep); }
+}
+$('#spin').onclick = () => setSpin(!spin);
+$('#plot3').addEventListener('pointerdown', () => { if (spin) setSpin(false); });
+
+let v3 = 'space', w3 = 'wael', gcol = 'aspect';
 const s3 = (p, w) => w === 'both' ? { v: (sc(p, 'wael').v + sc(p, 'zed').v) / 2, rated: p.wael != null || p.zed != null } : sc(p, w);
 const hov = p => `<b>${esc(p.name)}</b>${p.new ? ' · new' : ''}<br>Wael ${P100(sc(p, 'wael').v)}${p.wael != null ? ' (rated)' : ' (predicted)'}<br>Z ${P100(sc(p, 'zed').v)}${p.zed != null ? ' (rated)' : ' (predicted)'}`;
+const short = (s, n = 22) => s.length > n ? s.slice(0, n - 1) + '…' : s;
 function drawSpace() {
-  const groups = [['rated', p => !p.new && s3(p, w3).rated, { size: 6.5, symbol: 'circle' }], ['guess', p => !p.new && !s3(p, w3).rated, { size: 4.5, symbol: 'circle-open' }], ['new', p => p.new, { size: 4.5, symbol: 'diamond' }]];
+  const groups = [['rated', p => !p.new && s3(p, w3).rated, { size: 6.5, symbol: 'circle' }], ['guess', p => !p.new && !s3(p, w3).rated, { size: 4.5, symbol: 'circle-open' }], ['new', p => p.new, { size: 5, symbol: 'diamond' }]];
   const tr = groups.map(([, f, m]) => { const ps = D.places.filter(f); return { type: 'scatter3d', mode: 'markers', x: ps.map(p => p.x), y: ps.map(p => p.y), z: ps.map(p => p.z),
     marker: { ...m, color: ps.map(p => s3(p, w3).v), cmin: 0, cmax: 1, colorscale: ramp(), opacity: 0.92, ...(m.symbol !== 'circle-open' ? { line: { width: 0.5, color: css('--card') } } : {}) },
     text: ps.map(hov), hovertemplate: '%{text}<extra></extra>' }; });
+  const top = D.places.filter(p => p.new).sort((a, b) => s3(b, w3).v - s3(a, w3).v).slice(0, 8);
+  tr.push({ type: 'scatter3d', mode: 'text', x: top.map(p => p.x), y: top.map(p => p.y), z: top.map(p => p.z), text: top.map(p => short(p.name)), textposition: 'top center', textfont: { size: 11, color: css('--ink'), family: SANS }, hoverinfo: 'skip' });
   Plotly.react('plot3', tr, layout('Food praise →', 'Service praise →', 'Talk about lines →', { x: 0.55, y: -1.55, z: 0.6 }), cfg);
   $('#s3title').textContent = 'Where each restaurant sits';
-  $('#s3sub').textContent = 'Each dot is a restaurant, placed by how much reviewers praise its food, how much they praise its service, and how much they talk about lining up for it. Colour is how much the selected person likes it.';
+  $('#s3sub').textContent = 'Each dot is a restaurant, placed by how much reviewers praise its food, how much they praise its service, and how much they talk about lining up for it. Colour is how much the selected person likes it. Labels mark the eight best new places for that person.';
   $('#leg3').innerHTML = `<span>dislike<span class="ramp"></span>love</span><span>● been (own rank)</span><span>○ not been (model's guess)</span><span>◆ new place from Yelp</span>`;
   const P = D.places, m = a => Math.round(a.reduce((s, p) => s + s3(p, w3).v, 0) / a.length * 100);
   $('#read3').innerHTML = `<div><b>Food praise matters</b>Places in the right third average ${m(P.filter(p => p.x > 0.5))} for ${NAME[w3]}, the left third ${m(P.filter(p => p.x < -0.5))}.</div><div><b>How to read it</b>Warm colours gather toward praised food and praised service. Drag to rotate, scroll to zoom.</div>`;
@@ -375,37 +402,63 @@ function drawSpace() {
 function drawLand() {
   const w = w3 === 'both' ? 'wael' : w3, Sx = D.surf[w], g = Sx.grid;
   if (w3 === 'both') setSeg('s3who', 'wael'), w3 = 'wael';
-  const surf = { type: 'surface', x: g, y: g, z: Sx.z, colorscale: ramp(), cmin: 0.3, cmax: 0.7, opacity: 0.82, showscale: false, hovertemplate: 'food praise %{x:.1f}<br>line talk %{y:.1f}<br>predicted %{z:.2f}<extra></extra>' };
+  const surf = { type: 'surface', x: g, y: g, z: Sx.z, colorscale: ramp(), cmin: 0.3, cmax: 0.7, opacity: 0.85, showscale: false,
+    contours: { z: { show: true, usecolormap: true, project: { z: true }, width: 1 } }, hovertemplate: 'food praise %{x:.1f}<br>line talk %{y:.1f}<br>predicted %{z:.2f}<extra></extra>' };
   const ps = D.places.filter(p => p[w] != null);
   const dots = { type: 'scatter3d', mode: 'markers', x: ps.map(p => Math.max(-2.5, Math.min(2.5, p.x))), y: ps.map(p => Math.max(-2.5, Math.min(2.5, p.z))), z: ps.map(p => p[w]),
     marker: { size: 4, color: ps.map(p => p[w]), cmin: 0, cmax: 1, colorscale: ramp(), line: { width: 0.5, color: css('--card') } },
     text: ps.map(p => `<b>${esc(p.name)}</b><br>own rank ${P100(p[w])} · model ${P100(p[w + '_pred'])}`), hovertemplate: '%{text}<extra></extra>' };
   Plotly.react('plot3', [surf, dots], layout('Food praise →', 'Talk about lines →', 'Rank (0 to 1)', { x: 0.6, y: -1.6, z: 0.65 }), cfg);
   $('#s3title').textContent = `The shape of ${NAME[w]}'s taste`;
-  $('#s3sub').textContent = 'The surface is the model: height is how high a place would rank, given its food praise and how much people talk about the wait, with everything else at average. Dots are real ratings.';
+  $('#s3sub').textContent = 'The surface is the model: height is how high a place would rank, given its food praise and how much people talk about the wait, with everything else at average. The contours on the floor show the same shape from above. Dots are real ratings.';
   $('#leg3').innerHTML = `<span>lower<span class="ramp"></span>higher</span>`;
   const top = Object.entries(D.coef[w]).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1])).slice(0, 4).map(([k, v]) => `${k.startsWith('net') ? 'praise for' : 'talk about'} ${ASP[k.replace(/^(net|talk)_/, '')]} ${v > 0 ? '↑' : '↓'}`);
   $('#read3').innerHTML = `<div><b>Strongest weights</b>${top.join(' · ')}</div><div><b>Dots above the surface</b>Places liked more than the reviews predict. Below: places the reviews oversell.</div>`;
 }
+// Both people's landscapes in one scene: where the two surfaces separate is where your tastes differ.
+// Places you have both rated appear twice, joined by a line: blue is Wael's own rank, orange is Z's.
+function drawDuo() {
+  const g = D.surf.wael.grid, Zw = D.surf.wael.z, Zz = D.surf.zed.z, solid = c => [[0, c], [1, c]], clamp = v => Math.max(-2.5, Math.min(2.5, v));
+  const surf = (Z, c, who) => ({ type: 'surface', x: g, y: g, z: Z, colorscale: solid(css(c)), showscale: false, opacity: 0.5, name: who, lighting: { ambient: 0.8, diffuse: 0.5, specular: 0.05, roughness: 0.9 },
+    hovertemplate: `${who}<br>food praise %{x:.1f}<br>line talk %{y:.1f}<br>predicted %{z:.2f}<extra></extra>` });
+  const both = D.places.filter(p => p.wael != null && p.zed != null), X = both.map(p => clamp(p.x)), Y = both.map(p => clamp(p.z));
+  const links = { type: 'scatter3d', mode: 'lines', x: both.flatMap((_, i) => [X[i], X[i], null]), y: both.flatMap((_, i) => [Y[i], Y[i], null]), z: both.flatMap(p => [p.wael, p.zed, null]), line: { color: css('--ink3'), width: 2 }, hoverinfo: 'skip' };
+  const dots = (who, c) => ({ type: 'scatter3d', mode: 'markers', x: X, y: Y, z: both.map(p => p[who]), marker: { size: 4, color: css(c), line: { width: 0.5, color: css('--card') } },
+    text: both.map(p => `<b>${esc(p.name)}</b><br>Wael ${P100(p.wael)} · Z ${P100(p.zed)}`), hovertemplate: '%{text}<extra></extra>' });
+  let wide = { d: 0 }, close = { d: 9 };
+  Zw.forEach((row, j) => row.forEach((v, i) => { const d = v - Zz[j][i]; if (Math.abs(d) > Math.abs(wide.d)) wide = { d, x: g[i], y: g[j] }; if (Math.abs(d) < Math.abs(close.d)) close = { d, x: g[i], y: g[j] }; }));
+  Plotly.react('plot3', [surf(Zw, '--wael', 'Wael'), surf(Zz, '--zed', 'Z'), links, dots('wael', '--wael'), dots('zed', '--zed')], layout('Food praise →', 'Talk about lines →', 'Rank (0 to 1)', { x: 0.6, y: -1.6, z: 0.65 }), cfg);
+  $('#s3title').textContent = 'Wael and Z on one landscape';
+  $('#s3sub').textContent = `Each sheet is one person's model: height is how high a place would rank, given its food praise and how much people talk about the wait. Where the blue sheet rises above the orange, Wael would rank the place higher. The ${both.length} places you have both rated are marked twice, joined by a line: blue is Wael's own rank, orange is Z's.`;
+  $('#leg3').innerHTML = `<span><i class="sw" style="background:var(--wael)"></i>Wael</span><span><i class="sw" style="background:var(--zed)"></i>Z</span><span>line: the same place, two ranks</span>`;
+  const who = wide.d > 0 ? 'Wael' : 'Z', at = o => `food praise ${o.x.toFixed(1)}, line talk ${o.y.toFixed(1)}`, pts = d => { const n = Math.round(Math.abs(d) * 100); return n < 1 ? 'less than one point' : `${n} point${n === 1 ? '' : 's'}`; };
+  const gaps = both.map(p => Math.abs(p.wael - p.zed)), avg = Math.round(gaps.reduce((s, v) => s + v, 0) / gaps.length * 100), far = both[gaps.indexOf(Math.max(...gaps))];
+  $('#read3').innerHTML = `<div><b>Widest gap between the models</b>At ${at(wide)}, ${who} would rank a place ${pts(wide.d)} higher.</div><div><b>Closest agreement</b>Near ${at(close)}, the two models differ by ${pts(close.d)}.</div><div><b>Shared places</b>Your own ranks differ by ${avg} points on average. The biggest split is ${esc(far.name)}: Wael ${P100(far.wael)}, Z ${P100(far.zed)}.</div>`;
+}
 const BUCKET = { flavor: 'Food', quality: 'Food', portions: 'Food', what: 'Food', service: 'Service', wait: 'Wait & ordering', logistics: 'Wait & ordering', value: 'Price', ambience: 'Place & occasion', location: 'Place & occasion', occasion: 'Place & occasion', overall: 'Overall & menu', menu: 'Overall & menu' };
 const BCOL = { 'Food': '--a-food', 'Service': '--a-service', 'Wait & ordering': '--a-wait', 'Price': '--a-price', 'Place & occasion': '--a-place', 'Overall & menu': '--a-overall' };
+const TONE = { pos: ['Positive', '--a-wait'], neu: ['Neutral', '--a-overall'], neg: ['Negative', '--bad'] };
 function drawGal() {
-  const G = D.galaxy, groups = {};
-  G.x.forEach((_, i) => { const k = BUCKET[G.tag[i]] || 'Overall & menu'; (groups[k] = groups[k] || []).push(i); });
+  const G = D.galaxy, groups = {}, byTone = gcol === 'pol', col = k => css(byTone ? TONE[k][1] : BCOL[k]);
+  G.x.forEach((_, i) => { const k = byTone ? G.pol[i] : (BUCKET[G.tag[i]] || 'Overall & menu'); if (byTone && !TONE[k]) return; (groups[k] = groups[k] || []).push(i); });
   const tr = Object.entries(groups).map(([k, ix]) => ({ type: 'scatter3d', mode: 'markers', x: ix.map(i => G.x[i]), y: ix.map(i => G.y[i]), z: ix.map(i => G.z[i]),
-    marker: { size: 1.9, color: css(BCOL[k]), opacity: 0.75 }, text: ix.map(i => `<b>${esc(G.topic[i])}</b>${G.text && G.text[i] ? '<br>' + esc(G.text[i]) : ''}<br>${G.pol[i]}`), hovertemplate: '%{text}<extra></extra>' }));
+    marker: { size: 1.9, color: col(k), opacity: byTone && k === 'neg' ? 0.9 : 0.7 }, text: ix.map(i => `<b>${esc(G.topic[i])}</b>${G.text && G.text[i] ? '<br>' + esc(G.text[i]) : ''}<br>${G.pol[i]}`), hovertemplate: '%{text}<extra></extra>' }));
   const lb = G.labels.slice(0, 14);
-  tr.push({ type: 'scatter3d', mode: 'text', x: lb.map(l => l.x), y: lb.map(l => l.y), z: lb.map(l => l.z), text: lb.map(l => l.name), textfont: { size: 12, color: css('--ink'), family: 'Inter' }, hoverinfo: 'skip' });
+  tr.push({ type: 'scatter3d', mode: 'text', x: lb.map(l => l.x), y: lb.map(l => l.y), z: lb.map(l => l.z), text: lb.map(l => l.name), textfont: { size: 12, color: css('--ink'), family: SANS }, hoverinfo: 'skip' });
   const L = layout('', '', '', { x: 0.75, y: 0.75, z: 0.5 });
   for (const a of ['xaxis', 'yaxis', 'zaxis']) Object.assign(L.scene[a], { showticklabels: false, title: { text: '' }, showbackground: false, gridcolor: 'rgba(0,0,0,0)', zerolinecolor: 'rgba(0,0,0,0)' });
   Plotly.react('plot3', tr, L, cfg);
   $('#s3title').textContent = 'Every review sentence, mapped';
-  $('#s3sub').textContent = `${G.x.length.toLocaleString()} sentences from the Yelp reviews. Sentences that say similar things sit close together, so each cloud is a topic. Labels mark the biggest ones.`;
-  $('#leg3').innerHTML = Object.keys(groups).sort().map(k => `<span><i class="sw" style="background:var(${BCOL[k]});border-radius:50%"></i>${k} <span style="color:var(--ink3)">${groups[k].length.toLocaleString()}</span></span>`).join('');
-  $('#read3').innerHTML = `<div><b>Why food dominates</b>Most pulled reviews are 5-star, and they mostly describe dishes.</div>`;
+  $('#s3sub').textContent = `${G.x.length.toLocaleString()} sentences from the Yelp reviews. Sentences that say similar things sit close together, so each cloud is a topic. Labels mark the biggest ones. Colour by aspect, or by tone to see where the complaints sit.`;
+  $('#leg3').innerHTML = Object.keys(groups).sort().map(k => `<span><i class="sw" style="background:var(${byTone ? TONE[k][1] : BCOL[k]})"></i>${byTone ? TONE[k][0] : k} <span style="color:var(--ink3)">${groups[k].length.toLocaleString()}</span></span>`).join('');
+  $('#read3').innerHTML = byTone ? `<div><b>Where the negatives are</b>Only ${Math.round((groups.neg || []).length / G.x.length * 100)}% of these sentences are negative, so complaints form thin streaks inside topics rather than clouds of their own.</div>` : `<div><b>Why food dominates</b>Most pulled reviews are 5-star, and they mostly describe dishes.</div>`;
 }
-const draw3 = () => { if (!window.Plotly) { $('#plot3').innerHTML = '<p class="sub">The 3D library did not load. Check your connection and reload.</p>'; return; } $('#s3who').hidden = v3 === 'gal'; ({ space: drawSpace, land: drawLand, gal: drawGal })[v3](); };
-seg('s3view', v => { v3 = v; draw3(); }); seg('s3who', v => { w3 = v; draw3(); });
+const draw3 = () => {
+  if (!window.Plotly) { $('#plot3').innerHTML = '<p class="sub">The 3D library did not load. Check your connection and reload.</p>'; return; }
+  $('#s3who').hidden = v3 === 'gal' || v3 === 'duo'; $('#s3col').hidden = v3 !== 'gal';
+  ({ space: drawSpace, land: drawLand, duo: drawDuo, gal: drawGal })[v3]();
+};
+seg('s3view', v => { v3 = v; draw3(); }); seg('s3who', v => { w3 = v; draw3(); }); seg('s3col', v => { gcol = v; draw3(); });
 
 // ---------- pipeline ----------
 const STAGES = [
