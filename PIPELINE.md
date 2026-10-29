@@ -103,7 +103,7 @@ Positive, neutral and negative sentences are clustered separately (UMAP then HDB
 - 166 usable topics; 36% of sentences are unassigned or noise
 - Skim the topic table in the Taste tab: names should read as one idea each
 
-**Decided:** Hand tags over automatic ones: 180 topics took one pass, and the tags are what make the model readable.
+**Decided:** The clustering found 180 topics. Hand-tagging them took one pass, and 14 turned out to be talk about the reviews themselves, so 166 were kept. The tags are what make the model readable.
 
 **Open:** A few aspects (location, occasion) have thin topics and may be merging unrelated things.
 

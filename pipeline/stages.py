@@ -47,7 +47,7 @@ S = [
       what='Positive, neutral and negative sentences are clustered separately (UMAP then HDBSCAN), so "great service" and "slow service" become different topics. Settings are picked by how stable the topics are across random seeds. Each topic is hand-tagged with one of 12 aspects, a dish ("what"), or noise.',
       io='embeddings + sentiment → <code>sentences.csv</code>, <code>topics_tagged.csv</code>',
       check=[f'{n_topics} usable topics; {round(st["noise_share"]*100)}% of sentences are unassigned or noise', 'Skim the topic table in the Taste tab: names should read as one idea each'],
-      decided='Hand tags over automatic ones: 180 topics took one pass, and the tags are what make the model readable.',
+      decided='The clustering found 180 topics. Hand-tagging them took one pass, and 14 turned out to be talk about the reviews themselves, so 166 were kept. The tags are what make the model readable.',
       open='A few aspects (location, occasion) have thin topics and may be merging unrelated things.',
       run='python topics.py && python tags_manual.py'),
  dict(id='features', name='Features per restaurant', where='model.py', key='24 features',
