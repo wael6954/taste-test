@@ -1,7 +1,7 @@
 <!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Beli Taste</title>
+<title>Beli Taste (proof of concept)</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
 /* Tokens. Names ending in -ink/-line/-fill are surfaces; --wael and --zed identify the two people in every chart. */
@@ -129,8 +129,8 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
 <div class="wrap">
-<h1>Where should we eat?</h1>
-<p class="lede">A model trained on Wael's and Z's Beli rankings, reading how Yelp reviewers describe each place. It scores places neither of you has been to, explains why, and combines both tastes into one list.</p>
+<h1>Where should Wael and Z eat?</h1>
+<p class="lede">A proof of concept: a model trained on Wael's and Z's Beli rankings, reading how Yelp reviewers describe each place. It scores places neither of them has been to, explains why, and combines both tastes into one list. It rests on two people's lists, so the results show that the approach works, not that it is finished.</p>
 <div class="stats" id="stats"></div>
 <nav class="tabs" aria-label="Sections">
   <a href="#picks" data-v="picks">Picks</a><a href="#taste" data-v="taste">Taste</a><a href="#space" data-v="space">3D</a><a href="#pipeline" data-v="pipeline">Pipeline</a><a href="#checks" data-v="checks">Checks</a>
@@ -140,9 +140,9 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 <section class="view" id="v-picks">
  <div class="card">
   <div class="ctrl">
-   <label>For<div class="seg" id="who"><button data-v="both" aria-pressed="true">Both of us</button><button data-v="wael" aria-pressed="false">Wael</button><button data-v="zed" aria-pressed="false">Z</button></div></label>
+   <label>For<div class="seg" id="who"><button data-v="both" aria-pressed="true">Both</button><button data-v="wael" aria-pressed="false">Wael</button><button data-v="zed" aria-pressed="false">Z</button></div></label>
    <label id="rulebox">Combine by<select id="rule">
-     <option value="avg_nm">Average, skip anything one of us would hate</option>
+     <option value="avg_nm">Average, skip anything one of them would hate</option>
      <option value="avg">Plain average</option>
      <option value="min">Least misery (the less keen person decides)</option>
      <option value="mult">Multiply (punishes any weak score)</option>
@@ -164,8 +164,8 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 <!-- ============ TASTE ============ -->
 <section class="view" id="v-taste" hidden>
  <div class="card">
-  <h2>What moves each of you</h2>
-  <p class="sub">Correlation between how a place is described and where it sits on your list. Bars right of the line: the more reviewers say this, the higher you rank it. Solid bars are unlikely to be chance (p &lt; 0.05).</p>
+  <h2>What moves each person's ranking</h2>
+  <p class="sub">Correlation between how a place is described and where it sits on each person's list. Bars right of the line: the more reviewers say this, the higher the place is ranked. Solid bars are unlikely to be chance (p &lt; 0.05).</p>
   <div id="drivers"></div>
   <div class="legend"><span><i class="sw" style="background:var(--wael)"></i>Wael</span><span><i class="sw" style="background:var(--zed)"></i>Z</span><span><i class="sw" style="background:var(--ink3);opacity:.35"></i>faded: not significant</span></div>
  </div>
@@ -175,7 +175,7 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
  </div>
  <div class="card">
   <h2>Six kinds of restaurant</h2>
-  <p class="sub">Groups found from review language alone, overlapping (a place can be partly in two). The numbers are each person's average percentile for places in that group, so you can see which kinds you each favour.</p>
+  <p class="sub">Groups found from review language alone, overlapping (a place can be partly in two). The numbers are each person's average percentile for places in that group, so it shows which kinds each person favours.</p>
   <div class="clus" id="clus"></div>
  </div>
  <div class="card">
@@ -203,7 +203,7 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 <section class="view" id="v-pipeline" hidden>
  <div class="card">
   <h2>The pipeline, stage by stage</h2>
-  <p class="sub">Open a stage to see what goes in, what comes out, the numbers to sanity-check, the decision we made there, and what is still open. Tick a stage once you have looked at it (saved in this browser only). The same walkthrough is in <code class="mono">PIPELINE.md</code> in the repo.</p>
+  <p class="sub">Each stage opens to show what goes in, what comes out, the numbers to sanity-check, the decision made there, and what is still open. A stage can be ticked once it has been reviewed (saved in this browser only). The same walkthrough is in <code class="mono">PIPELINE.md</code> in the repo.</p>
   <div class="flow" id="flow"></div>
  </div>
 </section>
@@ -232,7 +232,7 @@ const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAl
 const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const P100 = v => v == null ? '-' : Math.round(v * 100);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const NAME = { wael: 'Wael', zed: 'Z', both: 'both of you' };
+const NAME = { wael: 'Wael', zed: 'Z', both: 'both people' };
 const tip = $('#tip');
 function showTip(e, html) { tip.innerHTML = html; tip.style.opacity = 1; const x = Math.min(e.clientX + 12, innerWidth - 290); tip.style.left = x + 'px'; tip.style.top = (e.clientY + 14) + 'px'; }
 function hideTip() { tip.style.opacity = 0; }
@@ -243,7 +243,7 @@ function store(k, v) { try { if (v === undefined) return JSON.parse(localStorage
 // ---------- header ----------
 const S = D.stats, nNew = D.places.filter(p => p.new).length;
 $('#stats').innerHTML = [
-  [S.rated_with_features, 'places you have ranked, with reviews'], [nNew, 'new places scored'], [S.reviews.toLocaleString(), 'Yelp reviews read'],
+  [S.rated_with_features, 'places ranked by Wael or Z, with reviews'], [nNew, 'new places scored'], [S.reviews.toLocaleString(), 'Yelp reviews read'],
   [S.sentences.toLocaleString(), 'review sentences'], [D.choice.wael.held_out.spearman.toFixed(2) + ' / ' + D.choice.zed.held_out.spearman.toFixed(2), 'held-out accuracy, Wael / Z (Spearman)']
 ].map(([b, s]) => `<div class="stat"><b>${b}</b><span>${s}</span></div>`).join('');
 
@@ -257,10 +257,10 @@ function phrase(feat, w) {
 }
 const RULES = {
   avg: { f: (a, b) => (a + b) / 2, h: 'The mean of the two scores. Simple, but one strong fan can carry a place the other would dislike.' },
-  avg_nm: { f: (a, b) => Math.min(a, b) < 0.35 ? null : (a + b) / 2, h: 'The mean, but places where either of you lands below 35 are dropped. A good default for picking somewhere together.' },
-  min: { f: (a, b) => Math.min(a, b), h: 'Ranked by the lower of the two scores, so the top places are ones neither of you would mind.' },
+  avg_nm: { f: (a, b) => Math.min(a, b) < 0.35 ? null : (a + b) / 2, h: 'The mean, but places where either person lands below 35 are dropped. A good default for picking somewhere together.' },
+  min: { f: (a, b) => Math.min(a, b), h: 'Ranked by the lower of the two scores, so the top places are ones neither person would mind.' },
   mult: { f: (a, b) => a * b, h: 'The product of the two scores. A weak score for either person sinks a place quickly.' },
-  borda: { f: null, h: 'Each of you ranks the candidate places; the ranks are added. Ignores how big the gaps are, only the order.' }
+  borda: { f: null, h: 'Each person ranks the candidate places; the ranks are added. Ignores how big the gaps are, only the order.' }
 };
 let who = store('who') || 'both', rule = store('rule') || 'avg_nm', scope = 'new', shown = 20;
 const sc = (p, w) => p[w] != null ? { v: p[w], rated: true } : { v: p[w + '_pred'], rated: false };
@@ -403,7 +403,7 @@ function drawSpace() {
   $('#s3sub').textContent = 'Each dot is a restaurant, placed by how much reviewers praise its food, how much they praise its service, and how much they talk about lining up for it. Colour is how much the selected person likes it. Labels mark the eight best new places for that person.';
   $('#leg3').innerHTML = `<span>dislike<span class="ramp"></span>love</span><span>● been (own rank)</span><span>○ not been (model's guess)</span><span>◆ new place from Yelp</span>`;
   const P = D.places, m = a => Math.round(a.reduce((s, p) => s + s3(p, w3).v, 0) / a.length * 100);
-  $('#read3').innerHTML = `<div><b>Food praise matters</b>Places in the right third average ${m(P.filter(p => p.x > 0.5))} for ${NAME[w3]}, the left third ${m(P.filter(p => p.x < -0.5))}.</div><div><b>How to read it</b>Warm colours gather toward praised food and praised service. Drag to rotate, scroll to zoom.</div>`;
+  $('#read3').innerHTML = `<div><b>Food praise matters</b>Places in the right third average ${m(P.filter(p => p.x > 0.5))} for ${NAME[w3]}, the left third ${m(P.filter(p => p.x < -0.5))}.</div><div><b>How to read it</b>Warm colours gather toward praised food and praised service. The plot rotates by dragging and zooms by scrolling.</div>`;
 }
 function drawLand() {
   const w = w3 === 'both' ? 'wael' : w3, Sx = D.surf[w], g = Sx.grid;
@@ -421,8 +421,8 @@ function drawLand() {
   const top = Object.entries(D.coef[w]).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1])).slice(0, 4).map(([k, v]) => `${k.startsWith('net') ? 'praise for' : 'talk about'} ${ASP[k.replace(/^(net|talk)_/, '')]} ${v > 0 ? '↑' : '↓'}`);
   $('#read3').innerHTML = `<div><b>Strongest weights</b>${top.join(' · ')}</div><div><b>Dots above the surface</b>Places liked more than the reviews predict. Below: places the reviews oversell.</div>`;
 }
-// Both people's landscapes in one scene: where the two surfaces separate is where your tastes differ.
-// Places you have both rated appear twice, joined by a line: blue is Wael's own rank, orange is Z's.
+// Both people's landscapes in one scene: where the two surfaces separate is where the two tastes differ.
+// Places both have rated appear twice, joined by a line: blue is Wael's own rank, orange is Z's.
 function drawDuo() {
   const g = D.surf.wael.grid, Zw = D.surf.wael.z, Zz = D.surf.zed.z, solid = c => [[0, c], [1, c]], clamp = v => Math.max(-2.5, Math.min(2.5, v));
   const surf = (Z, c, who) => ({ type: 'surface', x: g, y: g, z: Z, colorscale: solid(css(c)), showscale: false, opacity: 0.5, name: who, lighting: { ambient: 0.8, diffuse: 0.5, specular: 0.05, roughness: 0.9 },
@@ -435,11 +435,11 @@ function drawDuo() {
   Zw.forEach((row, j) => row.forEach((v, i) => { const d = v - Zz[j][i]; if (Math.abs(d) > Math.abs(wide.d)) wide = { d, x: g[i], y: g[j] }; if (Math.abs(d) < Math.abs(close.d)) close = { d, x: g[i], y: g[j] }; }));
   Plotly.react('plot3', [surf(Zw, '--wael', 'Wael'), surf(Zz, '--zed', 'Z'), links, dots('wael', '--wael'), dots('zed', '--zed')], layout('Food praise →', 'Talk about lines →', 'Rank (0 to 1)', { x: 0.6, y: -1.6, z: 0.65 }), cfg);
   $('#s3title').textContent = 'Wael and Z on one landscape';
-  $('#s3sub').textContent = `Each sheet is one person's model: height is how high a place would rank, given its food praise and how much people talk about the wait. Where the blue sheet rises above the orange, Wael would rank the place higher. The ${both.length} places you have both rated are marked twice, joined by a line: blue is Wael's own rank, orange is Z's.`;
+  $('#s3sub').textContent = `Each sheet is one person's model: height is how high a place would rank, given its food praise and how much people talk about the wait. Where the blue sheet rises above the orange, Wael would rank the place higher. The ${both.length} places both have rated are marked twice, joined by a line: blue is Wael's own rank, orange is Z's.`;
   $('#leg3').innerHTML = `<span><i class="sw" style="background:var(--wael)"></i>Wael</span><span><i class="sw" style="background:var(--zed)"></i>Z</span><span>line: the same place, two ranks</span>`;
   const who = wide.d > 0 ? 'Wael' : 'Z', at = o => `food praise ${o.x.toFixed(1)}, line talk ${o.y.toFixed(1)}`, pts = d => { const n = Math.round(Math.abs(d) * 100); return n < 1 ? 'less than one point' : `${n} point${n === 1 ? '' : 's'}`; };
   const gaps = both.map(p => Math.abs(p.wael - p.zed)), avg = Math.round(gaps.reduce((s, v) => s + v, 0) / gaps.length * 100), far = both[gaps.indexOf(Math.max(...gaps))];
-  $('#read3').innerHTML = `<div><b>Widest gap between the models</b>At ${at(wide)}, ${who} would rank a place ${pts(wide.d)} higher.</div><div><b>Closest agreement</b>Near ${at(close)}, the two models differ by ${pts(close.d)}.</div><div><b>Shared places</b>Your own ranks differ by ${avg} points on average. The biggest split is ${esc(far.name)}: Wael ${P100(far.wael)}, Z ${P100(far.zed)}.</div>`;
+  $('#read3').innerHTML = `<div><b>Widest gap between the models</b>At ${at(wide)}, ${who} would rank a place ${pts(wide.d)} higher.</div><div><b>Closest agreement</b>Near ${at(close)}, the two models differ by ${pts(close.d)}.</div><div><b>Shared places</b>Their own ranks differ by ${avg} points on average. The biggest split is ${esc(far.name)}: Wael ${P100(far.wael)}, Z ${P100(far.zed)}.</div>`;
 }
 const BUCKET = { flavor: 'Food', quality: 'Food', portions: 'Food', what: 'Food', service: 'Service', wait: 'Wait & ordering', logistics: 'Wait & ordering', value: 'Price', ambience: 'Place & occasion', location: 'Place & occasion', occasion: 'Place & occasion', overall: 'Overall & menu', menu: 'Overall & menu' };
 const BCOL = { 'Food': '--a-food', 'Service': '--a-service', 'Wait & ordering': '--a-wait', 'Price': '--a-price', 'Place & occasion': '--a-place', 'Overall & menu': '--a-overall' };
@@ -460,7 +460,7 @@ function drawGal() {
   $('#read3').innerHTML = byTone ? `<div><b>Where the negatives are</b>Only ${Math.round((groups.neg || []).length / G.x.length * 100)}% of these sentences are negative, so complaints form thin streaks inside topics rather than clouds of their own.</div>` : `<div><b>Why food dominates</b>Most pulled reviews are 5-star, and they mostly describe dishes.</div>`;
 }
 const draw3 = () => {
-  if (!window.Plotly) { $('#plot3').innerHTML = '<p class="sub">The 3D library did not load. Check your connection and reload.</p>'; return; }
+  if (!window.Plotly) { $('#plot3').innerHTML = '<p class="sub">The 3D library did not load. It needs a network connection; reloading once connected will show it.</p>'; return; }
   $('#s3who').hidden = v3 === 'gal' || v3 === 'duo'; $('#s3col').hidden = v3 !== 'gal';
   ({ space: drawSpace, land: drawLand, duo: drawDuo, gal: drawGal })[v3]();
 };
@@ -596,7 +596,7 @@ const STAGES = [
   "name": "New places",
   "where": "freeze.py, browser/reference.js, refscore.py",
   "key": "326 new places scored",
-  "what": "Restaurants neither of you has rated are pulled from Yelp searches in the areas you actually go (20 reviews each). Their sentences are mapped onto the frozen topics by nearest neighbours, turned into the same features, and scored with each person's model.",
+  "what": "Restaurants neither person has rated are pulled from Yelp searches in the areas the lists come from (20 reviews each). Their sentences are mapped onto the frozen topics by nearest neighbours, turned into the same features, and scored with each person's model.",
   "io": "Yelp search cards \u2192 <code>ref_cand.json</code> \u2192 <code>ref_meta.json</code> + chunks \u2192 <code>ref_predictions.csv</code>, <code>refrecs_*.csv</code>",
   "check": [
    "Frozen topics agree with the original on 98% of held-out sentences",
@@ -652,7 +652,7 @@ function drawChecks() {
   const F = D.freeze;
   $('#frz').innerHTML = `New places are mapped onto the existing topics by nearest neighbours instead of refitting. On ${F.heldout.toLocaleString()} held-out sentences it picks the same topic <b>${Math.round(F.same_topic_when_both_assigned * 100)}%</b> of the time and assigns ${Math.round(F.assigned_share_pred * 100)}% of sentences (original: ${Math.round(F.assigned_share_truth * 100)}%).`;
   const cc = D.refsum && D.refsum.crowd_check && D.refsum.crowd_check['wael+zed|average'];
-  $('#crowd').innerHTML = cc ? `Yelp stars were never an input. The top 20 new picks for both of you average <b>${cc.top20_mean_stars} stars</b> against ${cc.ref_mean_stars} stars for all new places, and prediction vs. stars correlates at ${cc.spearman_pred_vs_stars}. So the model is not just rediscovering the crowd favourite.${cc.top20_below_3_5.length ? ` Below 3.5 stars in the top 20: ${esc(cc.top20_below_3_5.join(', '))}.` : ''}` : 'Runs once new places are scored.';
+  $('#crowd').innerHTML = cc ? `Yelp stars were never an input. The top 20 new picks for both people average <b>${cc.top20_mean_stars} stars</b> against ${cc.ref_mean_stars} stars for all new places, and prediction vs. stars correlates at ${cc.spearman_pred_vs_stars}. So the model is not just rediscovering the crowd favourite.${cc.top20_below_3_5.length ? ` Below 3.5 stars in the top 20: ${esc(cc.top20_below_3_5.join(', '))}.` : ''}` : 'Runs once new places are scored.';
   const O = D.ou;
   $('#ou').innerHTML = `On 100 reviews, an LLM pulled ${O.units_per_review} opinions per review; sentence splitting caught <b>${Math.round(O.recall_of_llm_aspects * 100)}%</b> of them at ${Math.round(O.precision_vs_llm * 100)}% precision. Counting dish sentences as food praise caught more but predicted worse, so it was not adopted.`;
 }

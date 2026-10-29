@@ -1,6 +1,6 @@
 # taste-test
 
-A restaurant taste model built from Beli rankings and Yelp review text. It learns what each person responds to in how reviewers describe a place (food, service, waits, portions and so on), predicts how they would rank places they have not been to, and combines several people's predictions into one list for picking somewhere together.
+A proof of concept restaurant taste model built from Beli rankings and Yelp review text. It learns what each person responds to in how reviewers describe a place (food, service, waits, portions and so on), predicts how they would rank places they have not been to, and combines several people's predictions into one list for picking somewhere together.
 
 It works for any number of people. Two friends' Toronto lists (Wael and Z) are the test case.
 
