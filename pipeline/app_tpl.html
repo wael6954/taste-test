@@ -1,113 +1,131 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Beli Taste</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f6f4ef;--card:#fffdf9;--ink:#1c1a17;--ink2:#56524b;--ink3:#8a857b;--line:#e4dfd5;--grid:#ece8df;--chip:#efebe3;--scene:#fbfaf6;
- --wael:#2a78d6;--zed:#eb6834;--both:#6250d6;--good:#008300;--bad:#c2410c;--lo:#2a78d6;--mid:#cfcabd;--hi:#eb6834;
- --a-food:#eb6834;--a-service:#2a78d6;--a-wait:#1baf7a;--a-price:#eda100;--a-place:#6250d6;--a-overall:#8a857b}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#131210;--card:#1c1b18;--ink:#f0efec;--ink2:#c3c2b7;--ink3:#8f8c84;--line:#2f2d29;--grid:#292724;--chip:#26241f;--scene:#161513;
- --wael:#3987e5;--zed:#d95926;--both:#9085e9;--good:#3fa34d;--bad:#e2774b;--lo:#3987e5;--mid:#5b5850;--hi:#d95926;
- --a-food:#d95926;--a-service:#3987e5;--a-wait:#199e70;--a-price:#c98500;--a-place:#9085e9;--a-overall:#8f8c84;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#131210;--card:#1c1b18;--ink:#f0efec;--ink2:#c3c2b7;--ink3:#8f8c84;--line:#2f2d29;--grid:#292724;--chip:#26241f;--scene:#161513;
- --wael:#3987e5;--zed:#d95926;--both:#9085e9;--good:#3fa34d;--bad:#e2774b;--lo:#3987e5;--mid:#5b5850;--hi:#d95926;
- --a-food:#d95926;--a-service:#3987e5;--a-wait:#199e70;--a-price:#c98500;--a-place:#9085e9;--a-overall:#8f8c84;color-scheme:dark}
+/* Tokens. Names ending in -ink/-line/-fill are surfaces; --wael and --zed identify the two people in every chart. */
+:root{--sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+ --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:72px;--r-s:8px;--r-m:12px;--ease:cubic-bezier(.2,.8,.2,1);--t:.15s;
+ --bg:#fbfbfd;--card:#fbfbfd;--fill:#f0f0f4;--fill-hover:#e7e7ec;--raise:#fff;--scene:#f4f4f7;
+ --ink:#1d1d1f;--ink2:#515154;--ink3:#6e6e73;--line:#e3e3e8;--grid:#ebebef;--accent:#0066cc;
+ --wael:#0071e3;--zed:#c85a14;--good:#1e7e34;--bad:#b3411a;--lo:#3a7bd5;--mid:#d6d6dc;--hi:#e0701f;
+ --a-food:#d9622b;--a-service:#0071e3;--a-wait:#2a9d78;--a-price:#c99a1c;--a-place:#7a6fc4;--a-overall:#8e8e93;--shadow:0 1px 2px rgba(0,0,0,.14),0 0 0 .5px rgba(0,0,0,.05)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#111113;--card:#111113;--fill:#232326;--fill-hover:#2c2c30;--raise:#3a3a3f;--scene:#17171a;
+ --ink:#f5f5f7;--ink2:#b4b4ba;--ink3:#8e8e93;--line:#2c2c30;--grid:#26262a;--accent:#2997ff;
+ --wael:#4c9aff;--zed:#f08a4b;--good:#4cc364;--bad:#f0845a;--lo:#4c9aff;--mid:#4a4a50;--hi:#f08a4b;
+ --a-food:#f08a4b;--a-service:#4c9aff;--a-wait:#3cc79a;--a-price:#e0b040;--a-place:#9a90e0;--a-overall:#8e8e93;--shadow:0 1px 2px rgba(0,0,0,.5);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#111113;--card:#111113;--fill:#232326;--fill-hover:#2c2c30;--raise:#3a3a3f;--scene:#17171a;
+ --ink:#f5f5f7;--ink2:#b4b4ba;--ink3:#8e8e93;--line:#2c2c30;--grid:#26262a;--accent:#2997ff;
+ --wael:#4c9aff;--zed:#f08a4b;--good:#4cc364;--bad:#f0845a;--lo:#4c9aff;--mid:#4a4a50;--hi:#f08a4b;
+ --a-food:#f08a4b;--a-service:#4c9aff;--a-wait:#3cc79a;--a-price:#e0b040;--a-place:#9a90e0;--a-overall:#8e8e93;--shadow:0 1px 2px rgba(0,0,0,.5);color-scheme:dark}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
-.wrap{max-width:1120px;margin:0 auto;padding-block:32px 72px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.kicker{font:500 11px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
-h1{font:650 clamp(32px,5vw,48px)/1.04 Fraunces,Georgia,serif;margin:0 0 10px;letter-spacing:-.01em;text-wrap:balance}
-h2{font:600 22px/1.2 Fraunces,Georgia,serif;margin:0 0 6px;text-wrap:balance}
-h3{font:600 15px/1.3 Inter,sans-serif;margin:0 0 6px}
-.lede{color:var(--ink2);max-width:68ch;margin:0}
-.sub{color:var(--ink2);margin:0 0 16px;max-width:72ch;font-size:14.5px}
-.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:24px 0}
-.stats{background:var(--card)}.stat{box-shadow:0 0 0 .5px var(--line);background:var(--card);padding:12px 16px;min-width:0}.stat b{display:block;font:600 23px/1.15 Fraunces,serif}.stat span{color:var(--ink3);font-size:12.5px}
-nav.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
-nav.tabs a{border:1px solid var(--line);background:var(--card);color:var(--ink2);border-radius:999px;padding:8px 16px;font:500 14px Inter,sans-serif;text-decoration:none}
-nav.tabs a[aria-current=page]{background:var(--ink);color:var(--card);border-color:var(--ink)}
-section.view{display:flex;flex-direction:column;gap:18px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;min-width:0}
-.ctrl{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
-.ctrl label{font-size:12px;color:var(--ink3);display:flex;flex-direction:column;gap:4px;min-width:0;max-width:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--sans);-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.wrap{max-width:980px;margin:0 auto;padding-block:var(--s7) var(--s8);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.kicker{font-size:13px;color:var(--ink3);margin-bottom:var(--s2)}
+h1{font:600 clamp(26px,4vw,34px)/1.12 var(--sans);margin:0 0 var(--s2);letter-spacing:-.02em;text-wrap:balance}
+h2{font:600 20px/1.25 var(--sans);margin:0 0 var(--s1);letter-spacing:-.01em;text-wrap:balance}
+h3{font:600 15px/1.3 var(--sans);margin:0 0 var(--s1)}
+.lede{color:var(--ink2);max-width:62ch;margin:0}
+.sub{color:var(--ink2);margin:0 0 var(--s4);max-width:66ch;font-size:14px}
+.mono{font-family:var(--mono)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:var(--s4) var(--s5);margin:var(--s5) 0 var(--s6)}
+.stat{min-width:0}.stat b{display:block;font:600 22px/1.2 var(--sans);letter-spacing:-.01em;font-variant-numeric:tabular-nums}.stat span{display:block;color:var(--ink3);font-size:12.5px;line-height:1.35;margin-top:2px}
+nav.tabs{display:flex;gap:var(--s5);border-bottom:1px solid var(--line);margin:0 0 var(--s6);overflow-x:auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs a{color:var(--ink3);padding:var(--s3) 0;margin-bottom:-1px;border-bottom:2px solid transparent;font:500 14px var(--sans);text-decoration:none;white-space:nowrap;transition:color var(--t) var(--ease),border-color var(--t) var(--ease)}
+nav.tabs a:hover{color:var(--ink)}
+nav.tabs a[aria-current=page]{color:var(--ink);border-bottom-color:var(--ink)}
+section.view{display:flex;flex-direction:column;gap:var(--s7)}
+.card{min-width:0}
+.ctrl{display:flex;gap:var(--s3) var(--s5);flex-wrap:wrap;align-items:flex-end;margin-bottom:var(--s4)}
+.ctrl label{font-size:12px;font-weight:500;color:var(--ink3);display:flex;flex-direction:column;gap:6px;min-width:0;max-width:100%}
 #area{width:min(320px,100%)}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;flex-wrap:wrap}
-.seg button{background:transparent;border:0;padding:7px 12px;font:500 13px Inter,sans-serif;color:var(--ink2);cursor:pointer}
-.seg button[aria-pressed=true]{background:var(--ink);color:var(--card)}
-select,input[type=search]{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:7px 10px;font:500 13px Inter,sans-serif;max-width:100%}
+.seg{display:inline-flex;background:var(--fill);border-radius:9px;padding:2px;gap:2px;flex-wrap:wrap}
+.seg button{background:transparent;border:0;border-radius:7px;padding:5px 12px;font:500 13px var(--sans);color:var(--ink2);cursor:pointer;transition:background var(--t) var(--ease),color var(--t) var(--ease),box-shadow var(--t) var(--ease)}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-pressed=true]{background:var(--raise);color:var(--ink);box-shadow:var(--shadow)}
+select,input[type=search]{background:var(--fill);color:var(--ink);border:0;border-radius:var(--r-s);height:32px;padding:0 10px;font:13px var(--sans);max-width:100%;transition:background var(--t) var(--ease)}
+select:hover,input[type=search]:hover{background:var(--fill-hover)}
 input[type=search]{min-width:0;width:180px}
-.rulehelp{font-size:13px;color:var(--ink3);margin:-4px 0 12px;max-width:80ch}
+input::placeholder{color:var(--ink3)}
+.rulehelp{font-size:13px;color:var(--ink3);margin:0 0 var(--s3);max-width:80ch}
 .list{display:flex;flex-direction:column}
-.row{display:grid;grid-template-columns:34px minmax(0,1fr) 220px;gap:14px;padding:12px 4px;border-top:1px solid var(--grid);align-items:start}
+.row{display:grid;grid-template-columns:28px minmax(0,1fr) 220px;gap:var(--s4);padding:var(--s4) 0;border-top:1px solid var(--line);align-items:start}
 .row:first-child{border-top:0}
-.rk{font:600 18px/1.2 Fraunces,serif;color:var(--ink3);text-align:right}
-.nm{font-weight:600;font-size:15.5px}
-.meta{font-size:12.5px;color:var(--ink3);margin-top:1px}
-.why{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
-.why span{font-size:12px;padding:2px 8px;border-radius:7px;background:var(--chip);color:var(--ink2)}
-.tag-new{font:500 10.5px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--both);border:1px solid currentColor;border-radius:5px;padding:0 5px;margin-left:6px;vertical-align:2px}
-.sc{display:flex;flex-direction:column;gap:5px}
-.sb{display:grid;grid-template-columns:38px 1fr 30px;gap:6px;align-items:center;font-size:12px;color:var(--ink2)}
-.track{height:8px;border-radius:4px;background:var(--grid);position:relative;overflow:hidden}
-.fill{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
-.fill.pred{opacity:.55}
-.sb .v{font:500 12px "JetBrains Mono",monospace;text-align:right;color:var(--ink)}
-.sb .rated{color:var(--good)}
-.grp{font:600 12px Inter;color:var(--ink);display:flex;justify-content:space-between;border-bottom:1px dashed var(--line);padding-bottom:3px}
-.more{margin-top:12px}
-button.btn{background:var(--chip);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px 14px;font:500 13px Inter,sans-serif;cursor:pointer}
-.empty{color:var(--ink3);padding:20px 4px}
-.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--ink2);margin-top:10px;align-items:center}
-.sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.rk{font:500 13px/1.7 var(--sans);color:var(--ink3);text-align:right;font-variant-numeric:tabular-nums}
+.nm{font-weight:600;font-size:15px}
+.meta{font-size:13px;color:var(--ink3);margin-top:2px}
+.why{margin-top:6px;font-size:13px;line-height:1.45;color:var(--ink2)}
+.why span+span::before{content:" · ";color:var(--ink3)}
+.tag-new{font:600 12px var(--sans);color:var(--accent);margin-left:var(--s2)}
+.sc{display:flex;flex-direction:column;gap:6px}
+.sb{display:grid;grid-template-columns:36px 1fr 28px;gap:var(--s2);align-items:center;font-size:12px;color:var(--ink2)}
+.track{height:4px;border-radius:2px;background:var(--grid);position:relative;overflow:hidden}
+.fill{position:absolute;left:0;top:0;bottom:0;border-radius:2px}
+.fill.pred{opacity:.5}
+.sb .v{font:12px var(--sans);font-variant-numeric:tabular-nums;text-align:right;color:var(--ink3)}
+.sb .rated{color:var(--ink);font-weight:600}
+.grp{font:600 13px var(--sans);color:var(--ink);display:flex;justify-content:space-between;margin-bottom:2px}
+.more{margin-top:var(--s4)}
+button.btn{background:var(--fill);color:var(--ink);border:0;border-radius:var(--r-s);padding:7px 14px;font:500 13px var(--sans);cursor:pointer;transition:background var(--t) var(--ease),transform var(--t) var(--ease)}
+button.btn:hover{background:var(--fill-hover)}
+button.btn:active{transform:scale(.98)}
+button.btn:disabled{opacity:.5;cursor:default}
+.empty{color:var(--ink3);padding:var(--s5) 0}
+.legend{display:flex;gap:var(--s1) var(--s4);flex-wrap:wrap;font-size:12.5px;color:var(--ink3);margin-top:var(--s4);align-items:center}
+.sw{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:var(--s6) var(--s7)}
 .two>*{min-width:0}
-@media (max-width:780px){.two{grid-template-columns:1fr}.row{grid-template-columns:26px minmax(0,1fr)}.row .sc{grid-column:2}}
+@media (max-width:780px){.two{grid-template-columns:1fr;gap:var(--s6)}.row{grid-template-columns:24px minmax(0,1fr);gap:var(--s3)}.row .sc{grid-column:2}nav.tabs{gap:var(--s4)}.stats{grid-template-columns:1fr 1fr}}
 svg{display:block;max-width:100%;height:auto;overflow:visible}
-svg text{fill:var(--ink2);font:12px Inter,sans-serif}
+svg text{fill:var(--ink2);font:12px var(--sans)}
 svg .lab{fill:var(--ink)}
-svg .sm{font:11px "JetBrains Mono",monospace;fill:var(--ink3)}
-.clus{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
-.cc{border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
+svg .sm{font:11px var(--sans);font-variant-numeric:tabular-nums;fill:var(--ink3)}
+.clus{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--s3)}
+.cc{background:var(--fill);border-radius:var(--r-m);padding:var(--s4);min-width:0}
 .cc p{margin:4px 0;font-size:13px;color:var(--ink2)}
 .cc .m{font-size:12.5px;color:var(--ink3)}
 .plot{width:100%;height:min(70vh,620px);min-height:400px}
-.read{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:12px}
-.read div{background:var(--chip);border-radius:10px;padding:10px 12px;font-size:13.5px;color:var(--ink2)}
+.read{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--s4) var(--s5);margin-top:var(--s4);font-size:13.5px;color:var(--ink2)}
 .read b{color:var(--ink);display:block;font-weight:600;margin-bottom:2px}
-.ramp{display:inline-block;width:120px;height:10px;border-radius:5px;vertical-align:-1px;margin:0 6px;background:linear-gradient(90deg,var(--lo),var(--mid),var(--hi))}
-.head{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:flex-start;margin-bottom:8px}
+.ramp{display:inline-block;width:96px;height:6px;border-radius:3px;vertical-align:1px;margin:0 6px;background:linear-gradient(90deg,var(--lo),var(--mid),var(--hi))}
+.head{display:flex;justify-content:space-between;gap:var(--s4);flex-wrap:wrap;align-items:flex-start;margin-bottom:var(--s2)}
 .head>div:first-child{min-width:0;max-width:64ch}
 /* pipeline */
-.flow{display:flex;flex-direction:column;gap:0;position:relative}
-.stage{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;position:relative}
-.stage .dot{width:34px;height:34px;border-radius:50%;background:var(--card);border:2px solid var(--ink3);display:grid;place-items:center;font:600 13px "JetBrains Mono",monospace;color:var(--ink2);z-index:1;margin-top:14px}
-.stage.done .dot{border-color:var(--good);color:var(--good)}
-.stage:not(:last-child)::before{content:"";position:absolute;left:16px;top:48px;bottom:-14px;width:2px;background:var(--line)}
-.stage details{border:1px solid var(--line);border-radius:12px;background:var(--card);margin:8px 0;min-width:0}
-.stage summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.flow{display:flex;flex-direction:column}
+.stage{display:grid;grid-template-columns:28px minmax(0,1fr);gap:var(--s3);border-top:1px solid var(--line)}
+.stage:first-child{border-top:0}
+.stage .dot{font:500 13px/1.5 var(--sans);font-variant-numeric:tabular-nums;color:var(--ink3);text-align:right;padding-top:var(--s3)}
+.stage.done .dot{color:var(--good)}
+.stage details{min-width:0}
+.stage summary{list-style:none;cursor:pointer;padding:var(--s3) 0;display:flex;gap:var(--s3);align-items:baseline;flex-wrap:wrap}
 .stage summary::-webkit-details-marker{display:none}
-.stage summary b{font-size:15px}
-.stage summary .where{font:500 11px "JetBrains Mono",monospace;color:var(--ink3);letter-spacing:.04em}
-.stage summary .k{margin-left:auto;font-size:12.5px;color:var(--ink2)}
-.stage .body{padding:0 16px 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px 18px;font-size:13.5px;color:var(--ink2)}
-.stage .body h4{font:500 11px "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin:0 0 4px}
+.stage summary::after{content:"";width:6px;height:6px;border-right:1.5px solid var(--ink3);border-bottom:1.5px solid var(--ink3);transform:rotate(45deg);transition:transform var(--t) var(--ease);align-self:center;margin-left:var(--s1)}
+.stage details[open] summary::after{transform:rotate(225deg)}
+.stage summary b{font-size:15px;font-weight:600}
+.stage summary .where{font:12px var(--mono);color:var(--ink3)}
+.stage summary .k{margin-left:auto;font-size:13px;color:var(--ink2)}
+.stage .body{padding:0 0 var(--s4);display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--s4) var(--s6);font-size:13.5px;color:var(--ink2)}
+.stage .body h4{font:500 12px var(--sans);color:var(--ink3);margin:0 0 var(--s1)}
 .stage .body p,.stage .body ul{margin:0}.stage .body ul{padding-left:18px}
-.stage .body code{font:12px "JetBrains Mono",monospace;background:var(--chip);padding:1px 5px;border-radius:5px;word-break:break-word}
-.stage .q{border-left:3px solid var(--both);padding-left:10px}
-.chk{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--ink2);grid-column:1/-1}
+.stage .body code{font:12px var(--mono);background:var(--fill);padding:1px 5px;border-radius:4px;word-break:break-word}
+.stage .q{border-left:2px solid var(--line);padding-left:var(--s3)}
+.chk{display:flex;gap:var(--s2);align-items:center;font-size:13px;color:var(--ink2);grid-column:1/-1;cursor:pointer}
+.chk input{accent-color:var(--accent)}
 table{border-collapse:collapse;width:100%;font-size:13.5px}
-th{font:500 11px/1.3 "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
-td{padding:8px 10px;border-bottom:1px solid var(--grid);vertical-align:top}
-td.num{font-family:"JetBrains Mono",monospace;font-size:12.5px;white-space:nowrap}
+th{font:500 12px/1.3 var(--sans);color:var(--ink3);text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;border-bottom:1px solid var(--line)}
+td{padding:var(--s2) var(--s3) var(--s2) 0;border-bottom:1px solid var(--grid);vertical-align:top}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 .tw{overflow-x:auto}
 .ok{color:var(--good)}.warn{color:var(--bad)}
-.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--card);font-size:12px;padding:6px 9px;border-radius:7px;opacity:0;transition:opacity .1s;max-width:280px;z-index:5}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12px;padding:6px 10px;border-radius:var(--r-s);box-shadow:0 4px 16px rgba(0,0,0,.18);opacity:0;transition:opacity .1s;max-width:280px;z-index:5}
 [hidden]{display:none!important}
-.foot{color:var(--ink3);font-size:12.5px;margin-top:28px;max-width:80ch}
+.foot{color:var(--ink3);font-size:12.5px;margin-top:var(--s7);max-width:80ch}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
 <div class="wrap">
-<div class="kicker">Beli taste · v4 · Toronto · <span id="kdate"></span></div>
 <h1>Where should we eat?</h1>
 <p class="lede">A model trained on Wael's and Z's Beli rankings, reading how Yelp reviewers describe each place. It scores places neither of you has been to, explains why, and combines both tastes into one list.</p>
 <div class="stats" id="stats"></div>
@@ -220,7 +238,6 @@ function store(k, v) { try { if (v === undefined) return JSON.parse(localStorage
 
 // ---------- header ----------
 const S = D.stats, nNew = D.places.filter(p => p.new).length;
-$('#kdate').textContent = 'Oct 2026';
 $('#stats').innerHTML = [
   [S.rated_with_features, 'places you have ranked, with reviews'], [nNew, 'new places scored'], [S.reviews.toLocaleString(), 'Yelp reviews read'],
   [S.sentences.toLocaleString(), 'review sentences'], [D.choice.wael.held_out.spearman.toFixed(2) + ' / ' + D.choice.zed.held_out.spearman.toFixed(2), 'held-out accuracy, Wael / Z (Spearman)']
@@ -281,10 +298,10 @@ function drawList() {
   $('#rulehelp').textContent = who === 'both' ? RULES[rule].h : `Ranked by ${NAME[who]}'s score: their own Beli percentile where they have been, the model's guess where they have not.`;
   const R = ranked(), L = R.slice(0, shown);
   $('#list').innerHTML = L.length ? L.map(({ p, s }, i) => {
-    const price = p.price ? '$'.repeat(p.price) : '', meta = [p.hood, price, p.stars ? `Yelp ${p.stars}★` : ''].filter(Boolean).join(' · ');
-    const grp = who === 'both' ? `<div class="grp"><span>Together</span><span class="mono">${rule === 'borda' ? P100(s) : P100(s)}</span></div>` : '';
+    const price = p.price ? '$'.repeat(p.price) : '', meta = [p.hood, price, p.stars ? `${p.stars} on Yelp` : ''].filter(Boolean).join(' · ');
+    const grp = who === 'both' ? `<div class="grp"><span>Together</span><span>${P100(s)}</span></div>` : '';
     const realVsPred = scope !== 'new' && who !== 'both' && p[who] != null ? `<div class="meta">model guessed ${P100(p[who + '_pred'])}</div>` : '';
-    return `<div class="row"><div class="rk">${i + 1}</div><div style="min-width:0"><div class="nm">${esc(p.name)}${p.new ? '<span class="tag-new">new</span>' : ''}</div><div class="meta">${esc(meta)}${p.cl ? ' · ' + esc(p.cl) : ''}</div><div class="why">${whyChips(p)}</div></div>
+    return `<div class="row"><div class="rk">${i + 1}</div><div style="min-width:0"><div class="nm">${esc(p.name)}${p.new ? '<span class="tag-new">New</span>' : ''}</div><div class="meta">${esc(meta)}${p.cl ? ' · ' + esc(p.cl) : ''}</div><div class="why">${whyChips(p)}</div></div>
       <div class="sc">${grp}${who === 'both' ? bar(p, 'wael') + bar(p, 'zed') : bar(p, who)}${realVsPred}</div></div>`;
   }).join('') : '<div class="empty">Nothing matches these filters.</div>';
   $('#morebtn').hidden = R.length <= shown;
@@ -421,7 +438,7 @@ function drawChecks() {
   const F = D.freeze;
   $('#frz').innerHTML = `New places are mapped onto the existing topics by nearest neighbours instead of refitting. On ${F.heldout.toLocaleString()} held-out sentences it picks the same topic <b>${Math.round(F.same_topic_when_both_assigned * 100)}%</b> of the time and assigns ${Math.round(F.assigned_share_pred * 100)}% of sentences (original: ${Math.round(F.assigned_share_truth * 100)}%).`;
   const cc = D.refsum && D.refsum.crowd_check && D.refsum.crowd_check['wael+zed|average'];
-  $('#crowd').innerHTML = cc ? `Yelp stars were never an input. The top 20 new picks for both of you average <b>${cc.top20_mean_stars}★</b> against ${cc.ref_mean_stars}★ for all new places, and prediction vs. stars correlates at ${cc.spearman_pred_vs_stars}. So the model is not just rediscovering the crowd favourite.${cc.top20_below_3_5.length ? ` Below 3.5★ in the top 20: ${esc(cc.top20_below_3_5.join(', '))}.` : ''}` : 'Runs once new places are scored.';
+  $('#crowd').innerHTML = cc ? `Yelp stars were never an input. The top 20 new picks for both of you average <b>${cc.top20_mean_stars} stars</b> against ${cc.ref_mean_stars} stars for all new places, and prediction vs. stars correlates at ${cc.spearman_pred_vs_stars}. So the model is not just rediscovering the crowd favourite.${cc.top20_below_3_5.length ? ` Below 3.5 stars in the top 20: ${esc(cc.top20_below_3_5.join(', '))}.` : ''}` : 'Runs once new places are scored.';
   const O = D.ou;
   $('#ou').innerHTML = `On 100 reviews, an LLM pulled ${O.units_per_review} opinions per review; sentence splitting caught <b>${Math.round(O.recall_of_llm_aspects * 100)}%</b> of them at ${Math.round(O.precision_vs_llm * 100)}% precision. Counting dish sentences as food praise caught more but predicted worse, so it was not adopted.`;
 }

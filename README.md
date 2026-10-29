@@ -1,4 +1,4 @@
-# beli-taste
+# taste-test
 
 A restaurant taste model built from Beli rankings and Yelp review text. It learns what each person responds to in how reviewers describe a place (food, service, waits, portions and so on), predicts how they would rank places they have not been to, and combines several people's predictions into one list for picking somewhere together.
 
