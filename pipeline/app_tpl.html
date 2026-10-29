@@ -124,6 +124,8 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 .tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12px;padding:6px 10px;border-radius:var(--r-s);box-shadow:0 4px 16px rgba(0,0,0,.18);opacity:0;transition:opacity .1s;max-width:280px;z-index:5}
 [hidden]{display:none!important}
 .foot{color:var(--ink3);font-size:12.5px;margin-top:var(--s7);max-width:80ch}
+@media (max-width:780px){select,input[type=search]{font-size:16px}.plot{height:min(62vh,520px);min-height:340px}}
+@media (pointer:coarse){.seg button{padding:9px 13px}select,input[type=search]{height:44px}nav.tabs a{padding:14px 0}button.btn{padding:11px 16px}.chk{padding:6px 0}#plot3.locked{pointer-events:none}}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
 <div class="wrap">
@@ -190,7 +192,7 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
    <div class="ctrl" style="margin:0"><div class="seg" id="s3view"><button data-v="space" aria-pressed="true">Taste space</button><button data-v="land" aria-pressed="false">Landscape</button><button data-v="duo" aria-pressed="false">Wael vs Z</button><button data-v="gal" aria-pressed="false">Review galaxy</button></div>
    <div class="seg" id="s3who"><button data-v="wael" aria-pressed="true">Wael</button><button data-v="zed" aria-pressed="false">Z</button><button data-v="both" aria-pressed="false">Both</button></div>
    <div class="seg" id="s3col" hidden><button data-v="aspect" aria-pressed="true">By aspect</button><button data-v="pol" aria-pressed="false">By tone</button></div>
-   <button class="btn" id="spin" aria-pressed="false">Rotate</button></div></div>
+   <button class="btn" id="spin" aria-pressed="false">Rotate</button><button class="btn" id="touchlock" aria-pressed="false" hidden>Touch to explore</button></div></div>
   <div id="plot3" class="plot"></div>
   <div class="legend" id="leg3"></div>
   <div class="read" id="read3"></div>
@@ -322,7 +324,7 @@ const ANAME = { flavor: 'Food praised', quality: 'Ingredients / quality', portio
   value: 'Price & value', ambience: 'Atmosphere', location: 'Location', occasion: 'Occasions', overall: 'Would return', menu: 'Menu' };
 function drawDrivers() {
   const rows = D.A.wael.map(a => ({ a: a.a, w: a, z: D.A.zed.find(x => x.a === a.a) })).sort((x, y) => (y.w.r + y.z.r) - (x.w.r + x.z.r));
-  const W = 760, lw = 170, rh = 34, H = rows.length * rh + 30, x0 = lw + (W - lw - 20) / 2, sx = v => x0 + v / 0.45 * (W - lw - 20) / 2;
+  const W = Math.max(300, Math.min(760, Math.round($('#drivers').clientWidth || 760))), lw = W < 520 ? 135 : 170, rh = 34, H = rows.length * rh + 30, x0 = lw + (W - lw - 20) / 2, sx = v => x0 + v / 0.45 * (W - lw - 20) / 2;
   let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Aspect correlations per person">`;
   for (const t of [-0.4, -0.2, 0, 0.2, 0.4]) s += `<line x1="${sx(t)}" x2="${sx(t)}" y1="0" y2="${H - 22}" stroke="var(--${t === 0 ? 'ink3' : 'grid'})"/><text class="sm" x="${sx(t)}" y="${H - 6}" text-anchor="middle">${t > 0 ? '+' : ''}${t.toFixed(1)}</text>`;
   rows.forEach((r, i) => {
@@ -359,7 +361,8 @@ const cfg = { displaylogo: false, responsive: true, modeBarButtonsToRemove: ['to
 const ramp = () => [[0, css('--lo')], [0.5, css('--mid')], [1, css('--hi')]];
 let baseEye = { x: 1.55, y: 1.45, z: 0.85 }, spin = false, spinAng = 0, spinRaf = 0, lastT = 0;
 const layout = (x, y, z, eye) => {
-  baseEye = eye || { x: 1.55, y: 1.45, z: 0.85 }; spinAng = 0;
+  const k = innerWidth < 520 ? 1.4 : 1, e0 = eye || { x: 1.55, y: 1.45, z: 0.85 };  // pull the camera back on phones so the scene is not cropped
+  baseEye = { x: e0.x * k, y: e0.y * k, z: e0.z * k }; spinAng = 0;
   return { paper_bgcolor: 'rgba(0,0,0,0)', font: font(), margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false,
     hoverlabel: { bgcolor: css('--ink'), font: { color: css('--card'), family: SANS }, bordercolor: css('--ink') },
     scene: { xaxis: axis(x), yaxis: axis(y), zaxis: axis(z), camera: { eye: baseEye }, aspectmode: 'cube' } };
@@ -380,6 +383,9 @@ function setSpin(on) {
 }
 $('#spin').onclick = () => setSpin(!spin);
 $('#plot3').addEventListener('pointerdown', () => { if (spin) setSpin(false); });
+// On touch screens a 3D plot captures every swipe, which traps the page scroll. Keep it locked until asked.
+if (matchMedia('(pointer: coarse)').matches) { const lk = $('#touchlock'); lk.hidden = false; $('#plot3').classList.add('locked');
+  lk.onclick = () => { const on = $('#plot3').classList.toggle('locked'); lk.textContent = on ? 'Touch to explore' : 'Done'; lk.setAttribute('aria-pressed', !on); }; }
 
 let v3 = 'space', w3 = 'wael', gcol = 'aspect';
 const s3 = (p, w) => w === 'both' ? { v: (sc(p, 'wael').v + sc(p, 'zed').v) / 2, rated: p.wael != null || p.zed != null } : sc(p, w);
@@ -475,7 +481,7 @@ function drawFlow() {
 
 // ---------- checks ----------
 function drawVal(w) {
-  const V = D.V[w], rows = [...V.rows].sort((a, b) => b.sp - a.sp), W = 520, lw = 190, rh = 28, H = rows.length * rh + 34, sx = v => lw + Math.max(0, v + 0.15) / 0.6 * (W - lw - 40);
+  const V = D.V[w], rows = [...V.rows].sort((a, b) => b.sp - a.sp), W = Math.max(300, Math.min(520, Math.round($('#val-' + w).clientWidth || 520))), lw = W < 480 ? 165 : 190, rh = 28, H = rows.length * rh + 34, sx = v => lw + Math.max(0, v + 0.15) / 0.6 * (W - lw - 40);
   let s = `<h3 style="color:var(--${w})">${NAME[w]} · ${V.n} places</h3><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${NAME[w]} validation">`;
   for (const t of [-0.1, 0, 0.1, 0.2, 0.3, 0.4]) s += `<line x1="${sx(t)}" x2="${sx(t)}" y1="0" y2="${H - 24}" stroke="var(--${t === 0 ? 'ink3' : 'grid'})"/><text class="sm" x="${sx(t)}" y="${H - 8}" text-anchor="middle">${t.toFixed(1)}</text>`;
   rows.forEach((r, i) => { const y = i * rh + 4, best = r.m.startsWith('Aspects + talk'), a = sx(Math.min(0, r.sp)), b = sx(Math.max(0, r.sp));
@@ -507,6 +513,7 @@ function route() {
 }
 $$('nav.tabs a').forEach(a => a.onclick = e => { e.preventDefault(); history.replaceState(null, '', '#' + a.dataset.v); route(); });
 addEventListener('hashchange', route);
+let rzT, rzW = innerWidth; addEventListener('resize', () => { clearTimeout(rzT); rzT = setTimeout(() => { if (innerWidth === rzW) return; rzW = innerWidth; if (drawn.taste) drawDrivers(); if (drawn.checks) drawChecks(); }, 200); });
 route();
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (drawn.space) draw3(); });
 new MutationObserver(() => { if (drawn.space) draw3(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
