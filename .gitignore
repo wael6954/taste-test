@@ -1,0 +1,17 @@
+# Raw inputs: personal lists, Yelp review text, embeddings. Regenerate with the pipeline; do not commit.
+pipeline/data/*
+!pipeline/data/README.md
+# Intermediate outputs (contain review sentences)
+pipeline/out/
+pipeline/topic_model_v4/
+pipeline/restaurants.csv
+pipeline/ratings_all.csv
+__pycache__/
+*.pyc
+.DS_Store
+*.log
+
+# local app build with review text in hover
+app/index_private.html
+
+CLAUDE.md

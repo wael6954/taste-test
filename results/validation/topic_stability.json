@@ -1,0 +1,56 @@
+{
+ "pos_45": {
+  "n": 22636,
+  "topics": 92,
+  "noise": 0.338,
+  "seed_ari": 0.61
+ },
+ "pos_90": {
+  "n": 22636,
+  "topics": 52,
+  "noise": 0.336,
+  "seed_ari": 0.653
+ },
+ "pos_181": {
+  "n": 22636,
+  "topics": 32,
+  "noise": 0.323,
+  "seed_ari": 0.364
+ },
+ "neu_21": {
+  "n": 10746,
+  "topics": 73,
+  "noise": 0.403,
+  "seed_ari": 0.515
+ },
+ "neu_42": {
+  "n": 10746,
+  "topics": 2,
+  "noise": 0.002,
+  "seed_ari": 0.973
+ },
+ "neu_85": {
+  "n": 10746,
+  "topics": 29,
+  "noise": 0.393,
+  "seed_ari": 0.385
+ },
+ "neg_15": {
+  "n": 4127,
+  "topics": 60,
+  "noise": 0.394,
+  "seed_ari": 0.687
+ },
+ "neg_16": {
+  "n": 4127,
+  "topics": 57,
+  "noise": 0.378,
+  "seed_ari": 0.629
+ },
+ "neg_33": {
+  "n": 4127,
+  "topics": 4,
+  "noise": 0.002,
+  "seed_ari": 0.996
+ }
+}

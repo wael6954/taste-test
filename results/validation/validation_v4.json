@@ -1,0 +1,196 @@
+{
+ "topics_sentiment_split|cluster_fcm|wael": {
+  "n": 134,
+  "K": 10,
+  "spearman": 0.142,
+  "auc_top3": 0.563
+ },
+ "topics_sentiment_split|cluster_gmm|wael": {
+  "n": 134,
+  "K": 10,
+  "spearman": 0.14,
+  "auc_top3": 0.568
+ },
+ "topics_sentiment_split|knn|wael": {
+  "n": 134,
+  "K": 10,
+  "spearman": 0.142,
+  "auc_top3": 0.564
+ },
+ "topics_sentiment_split|cluster_fcm|zed": {
+  "n": 98,
+  "K": 10,
+  "spearman": -0.003,
+  "auc_top3": 0.544
+ },
+ "topics_sentiment_split|cluster_gmm|zed": {
+  "n": 98,
+  "K": 10,
+  "spearman": 0.107,
+  "auc_top3": 0.602
+ },
+ "topics_sentiment_split|knn|zed": {
+  "n": 98,
+  "K": 10,
+  "spearman": 0.118,
+  "auc_top3": 0.583
+ },
+ "how_topics+aspects|cluster_fcm|wael": {
+  "n": 134,
+  "K": 6,
+  "spearman": 0.107,
+  "auc_top3": 0.552
+ },
+ "how_topics+aspects|cluster_gmm|wael": {
+  "n": 134,
+  "K": 6,
+  "spearman": 0.156,
+  "auc_top3": 0.582
+ },
+ "how_topics+aspects|knn|wael": {
+  "n": 134,
+  "K": 6,
+  "spearman": 0.216,
+  "auc_top3": 0.631
+ },
+ "how_topics+aspects|cluster_fcm|zed": {
+  "n": 98,
+  "K": 6,
+  "spearman": 0.027,
+  "auc_top3": 0.502
+ },
+ "how_topics+aspects|cluster_gmm|zed": {
+  "n": 98,
+  "K": 6,
+  "spearman": 0.113,
+  "auc_top3": 0.557
+ },
+ "how_topics+aspects|knn|zed": {
+  "n": 98,
+  "K": 6,
+  "spearman": 0.272,
+  "auc_top3": 0.674
+ },
+ "aspects_cuisine_relative|cluster_fcm|wael": {
+  "n": 134,
+  "K": 5,
+  "spearman": 0.074,
+  "auc_top3": 0.536
+ },
+ "aspects_cuisine_relative|cluster_gmm|wael": {
+  "n": 134,
+  "K": 5,
+  "spearman": 0.005,
+  "auc_top3": 0.519
+ },
+ "aspects_cuisine_relative|knn|wael": {
+  "n": 134,
+  "K": 5,
+  "spearman": 0.103,
+  "auc_top3": 0.582
+ },
+ "aspects_cuisine_relative|cluster_fcm|zed": {
+  "n": 98,
+  "K": 5,
+  "spearman": -0.05,
+  "auc_top3": 0.474
+ },
+ "aspects_cuisine_relative|cluster_gmm|zed": {
+  "n": 98,
+  "K": 5,
+  "spearman": -0.1,
+  "auc_top3": 0.456
+ },
+ "aspects_cuisine_relative|knn|zed": {
+  "n": 98,
+  "K": 5,
+  "spearman": 0.084,
+  "auc_top3": 0.571
+ },
+ "mean_embedding|cluster_fcm|wael": {
+  "n": 134,
+  "K": 10,
+  "spearman": 0.101,
+  "auc_top3": 0.54
+ },
+ "mean_embedding|cluster_gmm|wael": {
+  "n": 134,
+  "K": 10,
+  "spearman": 0.103,
+  "auc_top3": 0.558
+ },
+ "mean_embedding|knn|wael": {
+  "n": 134,
+  "K": 10,
+  "spearman": 0.137,
+  "auc_top3": 0.571
+ },
+ "mean_embedding|cluster_fcm|zed": {
+  "n": 98,
+  "K": 10,
+  "spearman": -0.002,
+  "auc_top3": 0.509
+ },
+ "mean_embedding|cluster_gmm|zed": {
+  "n": 98,
+  "K": 10,
+  "spearman": 0.059,
+  "auc_top3": 0.555
+ },
+ "mean_embedding|knn|zed": {
+  "n": 98,
+  "K": 10,
+  "spearman": 0.058,
+  "auc_top3": 0.528
+ },
+ "ridge_aspects|wael": {
+  "n": 134,
+  "spearman": 0.221,
+  "auc_top3": 0.625
+ },
+ "ridge_aspects|zed": {
+  "n": 98,
+  "spearman": 0.212,
+  "auc_top3": 0.648
+ },
+ "ridge_aspects_cuisine_relative|wael": {
+  "n": 134,
+  "spearman": 0.203,
+  "auc_top3": 0.621
+ },
+ "ridge_aspects_cuisine_relative|zed": {
+  "n": 98,
+  "spearman": 0.251,
+  "auc_top3": 0.657
+ },
+ "ridge_aspects+talk|wael": {
+  "n": 134,
+  "spearman": 0.259,
+  "auc_top3": 0.658
+ },
+ "ridge_aspects+talk|zed": {
+  "n": 98,
+  "spearman": 0.381,
+  "auc_top3": 0.717
+ },
+ "baseline_cuisine_mean|wael": {
+  "n": 134,
+  "spearman": 0.037,
+  "auc_top3": 0.472
+ },
+ "null|wael": {
+  "n": 134,
+  "auc_95": 0.583,
+  "spearman_95": 0.17
+ },
+ "baseline_cuisine_mean|zed": {
+  "n": 98,
+  "spearman": -0.125,
+  "auc_top3": 0.431
+ },
+ "null|zed": {
+  "n": 98,
+  "auc_95": 0.603,
+  "spearman_95": 0.199
+ }
+}

@@ -1,0 +1,120 @@
+{
+ "choice": {
+  "wael": {
+   "method": "ridge_aspects_talk",
+   "held_out": {
+    "n": 134,
+    "spearman": 0.259,
+    "auc_top3": 0.658
+   },
+   "beats_null": true
+  },
+  "zed": {
+   "method": "ridge_aspects_talk",
+   "held_out": {
+    "n": 98,
+    "spearman": 0.381,
+    "auc_top3": 0.717
+   },
+   "beats_null": true
+  }
+ },
+ "recs": {
+  "wael|average": [
+   "Mikaku Udon Bar",
+   "Koh Lipe Thai Kitchen",
+   "Wilbur Mexicana",
+   "Trattoria Nervosa",
+   "JOEY Eaton Centre",
+   "The Queen & Beaver Public House",
+   "Mozy's",
+   "Katsuya",
+   "The Haam (Sushi & Taco)",
+   "Jin Dal Lae Korean Restaurant"
+  ],
+  "zed|average": [
+   "Burgers n' Fries Forever",
+   "Harvest Green",
+   "Plaza Premium Lounge (Domestic Departures, Terminal 3)",
+   "Kintaro Izakaya",
+   "Yakiniku Legend",
+   "Milagro Cantina",
+   "German Doner Kebab",
+   "Ikkousha Ramen Toronto",
+   "Sassafraz",
+   "Yummy Yummy Dumplings"
+  ],
+  "wael+zed|average": [
+   "Koh Lipe Thai Kitchen",
+   "Kintaro Izakaya",
+   "Mikaku Udon Bar",
+   "Trattoria Nervosa",
+   "Yummy Yummy Dumplings",
+   "Mozy's",
+   "Yakiniku Legend",
+   "Jin Dal Lae Korean Restaurant",
+   "The Haam (Sushi & Taco)",
+   "North of Brooklyn Pizzeria"
+  ],
+  "wael+zed|least_misery": [
+   "Koh Lipe Thai Kitchen",
+   "Kintaro Izakaya",
+   "Trattoria Nervosa",
+   "Mikaku Udon Bar",
+   "Jin Dal Lae Korean Restaurant",
+   "Mozy's",
+   "Yakiniku Legend",
+   "The Haam (Sushi & Taco)",
+   "Yummy Yummy Dumplings",
+   "Earls Kitchen + Bar"
+  ],
+  "wael+zed|trimmed_average": [
+   "Koh Lipe Thai Kitchen",
+   "Kintaro Izakaya",
+   "Mikaku Udon Bar",
+   "Trattoria Nervosa",
+   "Yummy Yummy Dumplings",
+   "Mozy's",
+   "Yakiniku Legend",
+   "Jin Dal Lae Korean Restaurant",
+   "The Haam (Sushi & Taco)",
+   "North of Brooklyn Pizzeria"
+  ],
+  "wael+zed|average_without_misery": [
+   "Koh Lipe Thai Kitchen",
+   "Kintaro Izakaya",
+   "Mikaku Udon Bar",
+   "Trattoria Nervosa",
+   "Yummy Yummy Dumplings",
+   "Mozy's",
+   "Yakiniku Legend",
+   "Jin Dal Lae Korean Restaurant",
+   "The Haam (Sushi & Taco)",
+   "North of Brooklyn Pizzeria"
+  ],
+  "wael+zed|multiplicative": [
+   "Koh Lipe Thai Kitchen",
+   "Kintaro Izakaya",
+   "Mikaku Udon Bar",
+   "Trattoria Nervosa",
+   "Mozy's",
+   "Yakiniku Legend",
+   "Yummy Yummy Dumplings",
+   "Jin Dal Lae Korean Restaurant",
+   "The Haam (Sushi & Taco)",
+   "North of Brooklyn Pizzeria"
+  ],
+  "wael+zed|borda": [
+   "Koh Lipe Thai Kitchen",
+   "Kintaro Izakaya",
+   "Mikaku Udon Bar",
+   "Trattoria Nervosa",
+   "Yummy Yummy Dumplings",
+   "Mozy's",
+   "Yakiniku Legend",
+   "Jin Dal Lae Korean Restaurant",
+   "The Haam (Sushi & Taco)",
+   "North of Brooklyn Pizzeria"
+  ]
+ }
+}

@@ -1,0 +1,26 @@
+{
+ "n_ref": 326,
+ "assigned_share": 0.57,
+ "crowd_check": {
+  "wael|average": {
+   "top20_mean_stars": 4.21,
+   "ref_mean_stars": 4.17,
+   "top20_below_3_5": [
+    "Cibo Wine Bar"
+   ],
+   "spearman_pred_vs_stars": 0.14
+  },
+  "zed|average": {
+   "top20_mean_stars": 4.27,
+   "ref_mean_stars": 4.17,
+   "top20_below_3_5": [],
+   "spearman_pred_vs_stars": 0.055
+  },
+  "wael+zed|average": {
+   "top20_mean_stars": 4.25,
+   "ref_mean_stars": 4.17,
+   "top20_below_3_5": [],
+   "spearman_pred_vs_stars": 0.103
+  }
+ }
+}

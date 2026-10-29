@@ -1,0 +1,181 @@
+topic_id,polarity,size,n_rest,top_words,tag,name
+0,pos,116,78,"stars, star, rating, giving, giving stars, solid, overall, solid stars, experience, tiktok",noise,star ratings
+1,pos,382,26,"tacos, taco, burrito, mexican, guacamole, salsa, chipotle, guac, salsas, bulgogi",what,tacos & burritos
+2,pos,172,19,"wings, wing, best wings, chicken wings, wings toronto, duff, best, wings city, beer, great wings",what,wings
+3,pos,309,48,"noodles, soup, broth, udon, noodle, beef, rich, chewy, curry, pork",what,noodles & broth
+4,pos,115,10,"ramen, kinton, best ramen, tonkotsu, broth, tonkotsu ramen, tsukemen, rich, shoyu, bowl",what,ramen
+5,pos,159,87,"prices, price, reasonable, worth, prices reasonable, buck, value, bang buck, bang, money",value,good prices
+6,pos,228,59,"fries, fries good, waffle, waffle fries, curly, curly fries, crispy, rings, crinkle, onion rings",what,fries
+7,pos,429,43,"burger, burgers, patty, smash, bun, smash burger, patties, juicy, smashed, fries",what,burgers
+8,pos,182,71,"server, servers, server friendly, friendly, attentive, helpful, polite, care, servers friendly, kind",service,attentive server
+9,pos,148,59,"salad, dressing, kale, salads, caesar, kale salad, salad good, mango salad, beet, beet salad",what,salads
+10,pos,129,88,"coming, come, soon, sure, coming sure, returning, look forward, forward, come soon, forward returning",overall,will be back
+11,pos,601,162,"experience, overall, good, try, recommend, hype, highly, disappointed, presentation, highly recommend",overall,good overall experience
+12,pos,1001,167,"come, recommend, visit, spot, try, love, highly, area, time, coming",overall,recommend & return
+13,pos,91,21,"crust, slice, slices, dough, chewy, pie, toppings, liked crust, sesame, pies",what,pizza crust
+14,pos,242,36,"pasta, italian, spaghetti, pesto, rigatoni, mushroom, bolognese, creamy, al dente, dente",what,pasta
+15,pos,436,28,"pizza, pizzas, pepperoni, best pizza, margherita, crust, slice, toppings, best, city",what,pizza
+16,pos,96,32,"eggs, benedict, egg, eggs benedict, breakfast, bacon, omelette, salmon, poached, english muffin",what,eggs & brunch plates
+17,pos,321,48,"sandwich, sandwiches, chicken sandwich, chicken, bacon, bread, fried chicken, hot, subs, deli",what,sandwiches
+18,pos,416,99,"chicken, fried chicken, fried, juicy, dog, tender, chicken good, moist, crispy, chicken juicy",what,fried chicken
+19,pos,290,63,"seafood, fish, oysters, shrimp, fresh, boil, lobster, crab, salmon, mussels",what,seafood
+20,pos,500,48,"sushi, rolls, roll, sashimi, salmon, spring, fresh, japanese, toro, hand",what,sushi
+21,pos,146,26,"eastern, middle eastern, middle, halal, syrian, egyptian, pakistani, persian, authentic, toronto",what,middle eastern food
+22,pos,308,31,"dumplings, pork, pad, fried, dumpling, soup dumplings, soup, tofu, pad thai, gai",what,dumplings & stir-fry
+23,pos,193,26,"thai, chinese, pho, vietnamese, authentic, restaurant, chinatown, china, thai restaurant, michelin",what,asian cuisines
+24,pos,215,46,"curry, roti, chicken, kebabs, kebab, karahi, naan, kothu, kothu roti, paneer",what,"curry, kebab, roti"
+25,pos,219,18,"shawarma, chicken shawarma, falafel, best shawarma, wrap, plate, shawarma wrap, shawarma plate, chicken, alpha",what,shawarma
+26,pos,319,98,"brisket, tender, meat, ribs, beef, lamb, bbq, steak, rib, juicy",what,meat & bbq
+27,pos,488,131,"sauce, spicy, sauces, garlic, hot, spice, mayo, dipping, hot sauce, oil",flavor,sauces & spice
+28,pos,743,132,"ice, dessert, cream, ice cream, drinks, mango, sweet, coffee, tea, latte",what,desserts & drinks
+29,pos,259,112,"portions, portion, size, generous, huge, portions huge, big, small, people, portions generous",portions,generous portions
+30,pos,168,86,"fresh, ingredients, ingredients fresh, tasted fresh, tasted, fresh delicious, fresh tasty, cooked, hot, tasty",quality,fresh ingredients
+31,pos,694,161,"service, friendly, service good, quick, fast, customer, service quick, service friendly, customer service, service great",service,"friendly, fast service"
+32,pos,629,153,"toronto, poutine, downtown toronto, downtown, canada, location, yonge, centre, best, visit toronto",location,favourite Toronto spot
+33,pos,239,105,"crispy, flavours, flavour, flavors, juicy, tasty, flavourful, delicious, flavor, filling",flavor,flavourful & juicy
+34,pos,469,142,"delicious, dish, dishes, meal, amazing, satisfied, tasty, dinner, good, enjoyed",flavor,delicious dishes
+35,pos,113,69,"menu, options, choices, items, lots, extensive, choose, variety, menu items, menu great",menu,menu variety
+36,pos,162,83,"try, menu, come, come try, items, try menu, return, try dishes, try items, dishes",menu,want to try more of the menu
+37,pos,124,45,"patio, rooftop, summer, sat, outdoor, weather, outside, rooftop patio, nice, sit",ambience,patio
+38,pos,281,93,"staff, staff friendly, friendly, attentive, helpful, staff nice, staff super, super friendly, friendly attentive, friendly helpful",service,friendly staff
+40,pos,109,75,"location, downtown, new, street, opened, convenient, locations, addition, open, station",location,convenient location
+41,pos,309,101,"waitress, waiter, server, friendly, attentive, helpful, table, kind, sure, nice",service,attentive waitstaff
+42,pos,599,122,"service, great, atmosphere, great service, staff, good service, good, friendly, amazing service, friendly staff",service,great food and service
+43,pos,247,93,"line, wait, reservation, long, worth, worth wait, minutes, table, reservations, seated",wait,worth the wait
+44,pos,534,153,"lunch, brunch, spot, restaurant, great, friends, breakfast, recommend, night, date",occasion,"good for lunch, brunch, dates"
+45,pos,147,75,"restaurant, spacious, vibe, casual, ambiance, restaurant spacious, decorated, atmosphere, modern, small",ambience,vibe & decor
+46,pos,527,138,"clean, decor, seating, interior, ambiance, cozy, space, inside, vibe, spacious",ambience,"clean, cozy interior"
+47,pos,95,70,"quality, good, decent, pretty good, pretty, excellent, eaten, consistently, eaten times, people come",quality,consistently good food
+48,pos,202,109,"lunch, price, prices, reasonable, value, reasonably, priced, reasonably priced, lunch special, tax",value,reasonably priced
+51,pos,123,70,"order, quickly, came, ordering, ready, arrived, minutes, fast, promptly, came quickly",wait,food comes quickly
+52,neu,23,23,"wifi, free wifi, free, outlets, near future, noting, sign door, power, works, access",logistics,free wifi
+53,neu,22,1,"ikea, know ikea, covers, bed, furniture, know, sells, frame, did know, sale",noise,IKEA store talk
+54,neu,77,27,"street parking, neighbourhood, neighbourhood street, paid neighbourhood, paid, parking, street, paid street, keg, print",location,parking
+56,neu,57,5,"campus, university, uoft, student, college, university toronto, students, ryerson, undergrad, class",location,campus
+57,neu,68,58,"stars, star, rating, giving, rate, probably, service, yelp, soaked, star rating",noise,star ratings
+58,neu,22,22,"review, reviews, instagram, hope, check, surprised, written, reading reviews, tempted, writing review",noise,about reviews
+59,neu,80,20,"burger, burgers, smash, double, shack, joint, smash burgers, burger joint, priest, better",what,burger joints
+60,neu,112,66,"cash, debit, credit, card, pay, cards, cash debit, charge, pay cash, accept",logistics,payment methods
+61,neu,110,81,"ok, say, wrong, expecting, let, book, pictures, special, surprised, cover",noise,expectations talk
+62,neu,130,81,"menu, options, items, try, qr, qr code, code, menu items, menu limited, dishes",menu,menu & QR ordering
+63,neu,34,21,"sampler, ordered different, dish, family style, sides, different, share, pasta dish, group ordered, courses",occasion,sharing in groups
+64,neu,209,71,"ice, cream, dessert, ice cream, chocolate, tea, latte, iced, matcha, cheesecake",what,desserts & drinks
+65,neu,169,96,"portion, portions, size, large, eat, big, portion size, small, meal, sizes",portions,portion size
+66,neu,41,22,"glass, poured, alcohol, beer, alcohol free, free beer, water, cup, asked, alcoholic beer",service,drink service
+67,neu,34,27,"beer, beverages, coffee, drinks, alcoholic beverages, alcoholic, coffee tea, sell, drink, wine",menu,drink options
+68,neu,23,15,"caffeine, coffee, alcohol, drink, beverages, cold, list, select, alcoholic, selection",menu,beverage selection
+69,neu,28,7,"hot pot, pot, hot, hotpot, cook, traditional hot, traditional, hi bowl, hi, grill",what,hot pot
+70,neu,431,149,"price, prices, tax, cost, expensive, worth, tip, pies, reasonable, person",value,price talk
+71,neu,118,32,"eggs, breakfast, toast, egg, pancakes, pancake, benedict, french toast, french, omelette",what,breakfast
+72,neu,132,62,"order, self, counter, number, pay, order pay, ipad, bring, buzzer, order number",logistics,counter ordering
+73,neu,32,22,"pub, felt, city, typical, home, tokyo, reminded, fare, japan, moment",ambience,feels like a pub / Japan
+74,neu,141,25,"tacos, taco, burrito, guacamole, tortilla, quesadilla, salsa, pastor, chips, fish",what,tacos
+75,neu,166,23,"sushi, roll, rolls, salmon, sashimi, hand, hand roll, tuna, aburi, set",what,sushi
+76,neu,94,66,"service, staff, better, customer service, customer, needs, slow, service fast, need staff, nice",service,customer service
+77,neu,34,10,"bowl, soup, base, soup base, broth, choose soup, weighed, pick, weight, choose",logistics,weigh-your-bowl
+78,neu,69,10,"wings, price wings, half price, wing, lb, tuesday, price, half, medium sauce, order wings",value,wing deals
+79,neu,95,52,"options, vegetarian, vegan, meat, deli, variety, protein, meats, fish, salads",menu,vegetarian & protein options
+80,neu,447,147,"toronto, location, located, opened, st, yonge, centre, downtown, dundas, eaton",location,Toronto location
+81,neu,129,77,"order, online, website, ahead, delivery, ritual, time, ordered, ordering, order ahead",logistics,order ahead & delivery
+82,neu,21,20,"door, restaurant wheelchair, door open, accessible door, accessible, open button, button, wheelchair accessible, wheelchair, open",logistics,accessibility
+83,neu,78,48,"washrooms, washroom, accessible, gender, wheelchair, gender neutral, wheelchair accessible, neutral, clean, neutral washrooms",logistics,washrooms
+84,neu,55,47,"tiktok, recommended, seeing, friend, check, stumbled, hotel, work, ig, social media",noise,how they found it
+85,neu,205,102,"busy, packed, loud, night, restaurant, quiet, lunch, quite busy, quite, busy lunch",ambience,busy & loud
+86,neu,46,24,"entrance, elevator, floor, hidden, speakeasy, second floor, enter, walk, door, downstairs",location,hidden entrance
+87,neu,61,40,"ambiance, decor, lcbo, dark, atmosphere, floor, interior, tones, joe fresh, restaurant small",ambience,decor
+88,neu,35,28,"takeout, dine, grab, experience, items, smaller, note, option, ordered takeout, doordash",logistics,takeout
+89,neu,61,33,"takeout, seating, seats, dine, tables, bar, available, eat, restaurant, bar seating",logistics,takeout vs dine-in setup
+90,neu,210,108,"seating, patio, tables, space, indoor, outdoor, inside, sit, area, table",ambience,seating space
+91,neu,21,19,"seated, right away, seated right, away, right, pm, busy seated, arrived, seated immediately, able",wait,seated right away
+92,neu,35,30,"right away, seated, away, right, promptly, seated right, seated promptly, immediately, seated immediately, walked",wait,seated promptly
+93,neu,101,70,"come, return, try, try dishes, come try, dishes, sure, wouldn, returning, probably wouldn",overall,would return
+94,neu,31,19,"said, placed, asked, gave, right, told, eye, man, asking, friend",noise,narrative
+95,neu,43,6,"ramen, tonkotsu, tonkotsu ramen, ikkousha, bowl ramen, gyoza, garlic, japan, sesame, pork",what,ramen
+96,neu,27,23,"server, servers, ask, checked, server came, march, people came, make feel, refilled, numerous",service,server check-ins
+97,neu,84,52,"server, waitress, lady, asked, check, checked, told, cashier, ask, table",service,server check-ins
+98,neu,84,15,"shawarma, chicken shawarma, wrap, shawarmas, chicken, kebab, shawarma plate, shawarma wrap, wraps, ordered chicken",what,shawarma
+99,neu,144,89,"twice, times, time, years, coming, visited, went, second time, month, time trying",occasion,repeat visits
+100,neu,257,124,"lunch, dinner, came, quick, stopped, bite, quick bite, night, friends, went",occasion,lunch or dinner visit
+101,neu,136,63,"reservation, reservations, table, make, wait, make reservation, make reservations, waited, seated, advance",wait,reservations
+102,neu,40,24,"line, moves, long, lineup, line moves, fast, moves pretty, quickly, line door, ups",wait,line moves fast
+103,neu,31,20,"peak, early, wait, avoid, waitlist, avoid peak, line, rush, peak times, peak hours",wait,peak times
+104,neu,32,26,"open, open late, late, hours, closing, till, hour, weekends, day, pm",logistics,opening hours
+105,neu,86,59,"minutes, took, mins, took minutes, waited, min, wait, order, takes, took min",wait,food prep time
+106,neu,58,41,"wait, minutes, waited, waited minutes, min, hour, wait minutes, wait time, waiting, evening",wait,wait time
+107,neu,242,82,"chicken, fries, sandwich, burger, cheese, ordered, poutine, onion, jerk, double",what,"burgers, sandwiches, fries"
+108,neu,43,21,"salad, salads, beet, salad bar, beet salad, look, dressing, caesar, kale, pear salad",what,salads
+109,neu,53,15,"pizza, crust, pizza pizza, fresca, oven, pizzas, craft, toppings, margherita, new york",what,pizza
+110,neu,158,40,"pizza, pepperoni, pasta, vodka, spaghetti, basil, pesto, margherita, di, mozzarella",what,pizza & pasta
+111,neu,22,17,"bread, toast, baguette, flatbread, sourdough, soggy, ingredients, chewy, rich, point",quality,bread texture
+112,neu,53,39,"syrup, sweet, tasted, real, tastes, flavour, taste, cardamom, hint, sea",flavor,sweetness & flavour notes
+113,neu,73,48,"crispy, crunchy, soft, mouth, batter, edges, texture, crisp, greasy, chewy",flavor,texture & crispiness
+114,neu,45,24,"fries, crispy, crinkle, salt, fries mcdonald, fries crispy, mcdonald fries, truffle fries, fries fresh, mcdonald",what,fries
+115,neu,39,32,"pickled, salad, cabbage, tomatoes, coleslaw, potato salad, lettuce, comes, corn, onions",what,sides
+116,neu,77,32,"lobster, crab, shrimp, seafood, mussels, octopus, oysters, tartare, mixed seafood, shrimps",what,seafood
+117,neu,43,33,"beef, meat, steak, tender, medium rare, rare, dark meat, sliced, medium, white meat",flavor,meat doneness
+118,neu,36,28,"chicken, moist, dry, tender, breast, chicken moist, bones, meat, chicken breast, bone",flavor,chicken moistness
+119,neu,22,15,"garlic, oil, soy garlic, flavor, soy, garlic oil, nutty, spicy sauce, honey garlic, parsley",flavor,garlic & oil add-ons
+120,neu,171,77,"sauce, spicy, sauces, spice, mild, level, spice level, dipping, hot sauce, hot",flavor,spice level
+121,neu,98,33,"curry, roti, chicken, butter chicken, naan, butter, rice, lamb, biryani, indian",what,indian & pakistani
+122,neu,48,21,"thai, chinese, asian, dishes, fusion, thailand, thai dishes, noodles, lao, menu asian",what,asian fusion
+123,neu,21,6,"dumplings, dumpling, soup dumplings, soup, handmade, mini, steamed, pan fried, pan, prefer",what,dumplings
+124,neu,60,22,"momo, dumplings, pork, steamed, pan, fried, pan fried, pad, beef, rice",what,momo & thai dishes
+125,neg,35,3,"university, students, uoft, school, spirit, student, difficult, number, dog, courses",noise,university talk
+126,neg,63,19,"pizza, pizzas, slice, slices, crust, pepperoni, dough, pizza pizza, pizzeria, italian",quality,bad pizza
+127,neg,39,13,"shawarma, chicken shawarma, worst shawarma, chicken, worst, beef shawarma, plate, live hype, bad, live",quality,bad shawarma
+128,neg,45,13,"tacos, burrito, taco, chipotle, nachos, taco bell, bell, corn, cheese, warm",quality,mediocre tacos
+129,neg,17,15,"bowl, disadvantage, regret, wait time, portions, things, downside wait, kimchi, downsides, gripe",wait,downside: wait
+130,neg,54,29,"fries, poutine, cheese, waffle fries, cut fries, crinkle, waffle, cheese fries, french fries, french",quality,mediocre fries
+131,neg,24,20,"cold, came cold, ice, warm, came, toast, oil, crust, temperature, sesame",quality,food arrived cold
+132,neg,21,18,"menu, items, options, available, menus, online, table, ordering, isn, told",menu,limited menu
+133,neg,16,11,"drinks, wine, drink, beer, glass, skip, price, skip time, ordered drinks, glasses",value,drinks pricey
+134,neg,34,29,"washrooms, washroom, bathroom, customer washrooms, use, bathrooms, downstairs, restroom, toilet, women",logistics,no washrooms
+135,neg,82,20,"burger, burgers, bun, patty, smash, patties, smash burger, double, fast, greasy",quality,bad burger
+136,neg,22,19,"pricey, bit pricey, expensive, price, cheap, pricing, bit, quality, quality doesn, increased",value,pricey
+137,neg,45,28,"cheap, expensive, price, slice, paid, small, fries, pay, brisket, rice",value,price for what you get
+138,neg,15,12,"sizes, portion sizes, portions, huge, portion, massive, value, pile, quite expensive, light",portions,massive portions
+139,neg,38,32,"money, save, order, save money, wouldn order, waste money, wouldn, waste, recommend, ordering",overall,waste of money
+140,neg,75,49,"return, won, returning, come, eat, seriously, going, soon, avoid, anytime soon",overall,won't return
+141,neg,43,23,"sandwich, bread, sandwiches, cheddar, chicken sandwich, chicken, soggy, kids, bun, beef",quality,soggy sandwich
+142,neg,32,21,"tables, clean, dirty, smells, cleanliness, crawling, flies, kitchen, bugs, chopped",ambience,dirty
+143,neg,22,17,"hot, ac, hot inside, heat, door, inside, air, working, downside, main complaint",ambience,too hot inside
+144,neg,75,42,"cash, card, refund, credit, charged, called, gift, mistake, credit card, charge",logistics,payment & refund problems
+145,neg,27,19,"wrap, wraps, fresh, stale, didn taste, gyro, pita, taste fresh, raw, dough",quality,stale wraps
+146,neg,15,11,"parking, little hard, park, street, area, block, nearby, buy, took time, hard come",location,hard parking
+147,neg,29,27,"believe, blew, surprised, knew, hype, concept, children, thought, try, impressive",noise,surprise narrative
+148,neg,24,22,"star, stars, rating, reason, realized, ice cream, ice, going, cream, restaurant",noise,star ratings
+149,neg,28,23,"review, rated, reviews, write, low, reviewers, good reviews, write review, sure, poorly",noise,about reviews
+150,neg,19,18,"experience, best experience, pleasant, particularly, best, wasn, energy, wasn particularly, comfortable, bad experience",overall,not the best experience
+151,neg,29,25,"disappointing, experience, decision, visit, visited, hype, went, location, sadly, years",overall,disappointing visit
+152,neg,17,15,"wasn happy, happy, wasn, screaming, office, ridiculous, member, party, turned, odd",noise,unhappy narrative
+153,neg,54,45,"disappointed, disappointing, expecting, did live, didn enjoy, bit disappointed, expectations, left, disappointment, didn",overall,disappointed
+154,neg,67,44,"seating, accessible, cramped, space, chairs, uncomfortable, restaurant wheelchair, sit, stairs, wheelchair",ambience,cramped seating
+155,neg,29,20,"ambiance, decor, building, atmosphere, old, fancy, view, basic, clean, looks",ambience,basic decor
+156,neg,17,16,"busy, restaurant, busy restaurant, certainly, waitress, pay attention, spread, understaffed, rushed, standing",service,understaffed
+157,neg,103,17,"dishes, quality, overpriced, canada, worse, customer, years, customer service, slop, ai",quality,substandard food
+158,neg,19,18,"packed, busy, loud, wonder, weekend, gets, buying, noise, oh, messy",ambience,packed & loud
+159,neg,41,36,"toronto, best, mississauga, korean, life, downtown toronto, places, authentic, let, typical",noise,searching for the best
+161,neg,66,52,"minutes, took, long, orders, order, long time, wait, time, mins, min",wait,slow orders
+162,neg,90,61,"wait, reservation, long, line, late, reservations, waitlist, open, hours, busy",wait,"long waits, no reservations"
+163,neg,52,31,"chicken, fried chicken, fried, bone, tenders, breading, original, bbq, dry, moist",quality,bad fried chicken
+164,neg,79,53,"service, slow, friendly, service good, staff, good, rude service, unfortunately service, mediocre, good service",service,bad service
+165,neg,35,28,"customer, customer service, servers, server, service, bad customer, poor, poor customer, bad, customers",service,poor customer service
+166,neg,25,13,"soup, portion, pho, vietnamese, didn know, half portion, sick, tastes, available, entire",noise,soup musings
+167,neg,21,7,"dumplings, soup dumplings, dumpling, soup, juicy, pan fried, pan, stuck, texture, disappointed",quality,meh dumplings
+168,neg,41,24,"ramen, noodles, rice, pad, mango, pad thai, thai, sticky rice, mango sticky, udon",quality,noodle dishes let down
+169,neg,20,18,"slow, service slow, bit slow, service, service bit, quite slow, downside, moved, bit, witnessed",service,slow service
+170,neg,50,40,"service, service hit, hit miss, service great, servers, service terrible, miss, hit, terrible, service lacking",service,service hit or miss
+171,neg,19,13,"salmon, fish, mayo, tuna, oshi, mixed, seafood, tasteless, taste, texture",flavor,bland fish
+172,neg,34,9,"sushi, roll, rolls, rice, fish, time went, lots, takeout, quality, salmon",quality,sushi problems
+173,neg,52,36,"staff, employees, rude, work, job, attitude, care, customers, situation, manager",service,rude staff
+174,neg,23,19,"server, waitress, cutlery, asked, plates, took, waiter, utensils, asking, ask",service,forgot items
+175,neg,79,32,"rude, walked, attitude, hostess, lady, walked away, woman, bean, young, spoke",service,rude host
+176,neg,66,39,"meat, steak, beef, tender, pork, lamb, medium, dry, ribs, chewy",quality,tough meat
+177,neg,30,23,"salad, dressing, kale, salad dressing, cobb, lettuce, served, potato salad, salads, fresh",quality,bad salad
+178,neg,40,34,"spicy, spice, mild, level, medium, jerk, asked, heat, kick, non",flavor,not spicy enough
+179,neg,79,63,"finish, stomach, couldn, couldn finish, meal, eating, able finish, half, finish half, finishing",portions,couldn't finish
+180,neg,52,43,"sauce, hot sauce, tomato, sauces, garlic, tomato sauce, hot, sauce wasn, overpowering, house",flavor,sauce let down
+181,neg,23,19,"salty, salt, salted, added, pickles, lacked bit, comparing, prosciutto, claw, bit salty",flavor,too salty
+182,neg,72,53,"bad, quality, special, stood, disappointed, tasty, mediocre, sour, overall, decent",quality,mediocre food
+183,neg,16,14,"ice, cream, root beer, root, shaved, matcha, shaved ice, milkshake, tea, green",quality,dessert let down
+184,neg,120,76,"taste, dry, tasted, flavour, sweet, flavours, watery, soggy, flavor, tasteless",flavor,dry & tasteless

@@ -1,0 +1,242 @@
+{
+ "wael|ambience": {
+  "plain": [
+   0.152,
+   0.079
+  ],
+  "within_cuisine": [
+   0.127,
+   0.144
+  ]
+ },
+ "wael|flavor": {
+  "plain": [
+   0.315,
+   0.0
+  ],
+  "within_cuisine": [
+   0.293,
+   0.001
+  ]
+ },
+ "wael|location": {
+  "plain": [
+   0.153,
+   0.078
+  ],
+  "within_cuisine": [
+   0.149,
+   0.085
+  ]
+ },
+ "wael|logistics": {
+  "plain": [
+   0.071,
+   0.417
+  ],
+  "within_cuisine": [
+   0.04,
+   0.646
+  ]
+ },
+ "wael|menu": {
+  "plain": [
+   0.213,
+   0.013
+  ],
+  "within_cuisine": [
+   0.218,
+   0.011
+  ]
+ },
+ "wael|occasion": {
+  "plain": [
+   0.039,
+   0.659
+  ],
+  "within_cuisine": [
+   0.003,
+   0.973
+  ]
+ },
+ "wael|overall": {
+  "plain": [
+   0.207,
+   0.016
+  ],
+  "within_cuisine": [
+   0.189,
+   0.029
+  ]
+ },
+ "wael|portions": {
+  "plain": [
+   0.023,
+   0.791
+  ],
+  "within_cuisine": [
+   0.005,
+   0.957
+  ]
+ },
+ "wael|quality": {
+  "plain": [
+   0.187,
+   0.031
+  ],
+  "within_cuisine": [
+   0.157,
+   0.07
+  ]
+ },
+ "wael|service": {
+  "plain": [
+   0.247,
+   0.004
+  ],
+  "within_cuisine": [
+   0.231,
+   0.007
+  ]
+ },
+ "wael|value": {
+  "plain": [
+   -0.021,
+   0.811
+  ],
+  "within_cuisine": [
+   -0.04,
+   0.646
+  ]
+ },
+ "wael|wait": {
+  "plain": [
+   0.156,
+   0.072
+  ],
+  "within_cuisine": [
+   0.142,
+   0.101
+  ]
+ },
+ "zed|ambience": {
+  "plain": [
+   0.145,
+   0.154
+  ],
+  "within_cuisine": [
+   0.179,
+   0.078
+  ]
+ },
+ "zed|flavor": {
+  "plain": [
+   0.273,
+   0.007
+  ],
+  "within_cuisine": [
+   0.296,
+   0.003
+  ]
+ },
+ "zed|location": {
+  "plain": [
+   0.162,
+   0.111
+  ],
+  "within_cuisine": [
+   0.213,
+   0.035
+  ]
+ },
+ "zed|logistics": {
+  "plain": [
+   -0.18,
+   0.076
+  ],
+  "within_cuisine": [
+   -0.175,
+   0.085
+  ]
+ },
+ "zed|menu": {
+  "plain": [
+   0.271,
+   0.007
+  ],
+  "within_cuisine": [
+   0.235,
+   0.02
+  ]
+ },
+ "zed|occasion": {
+  "plain": [
+   0.113,
+   0.267
+  ],
+  "within_cuisine": [
+   0.107,
+   0.296
+  ]
+ },
+ "zed|overall": {
+  "plain": [
+   0.182,
+   0.072
+  ],
+  "within_cuisine": [
+   0.305,
+   0.002
+  ]
+ },
+ "zed|portions": {
+  "plain": [
+   0.205,
+   0.043
+  ],
+  "within_cuisine": [
+   0.209,
+   0.039
+  ]
+ },
+ "zed|quality": {
+  "plain": [
+   0.033,
+   0.746
+  ],
+  "within_cuisine": [
+   0.034,
+   0.739
+  ]
+ },
+ "zed|service": {
+  "plain": [
+   0.131,
+   0.198
+  ],
+  "within_cuisine": [
+   0.206,
+   0.042
+  ]
+ },
+ "zed|value": {
+  "plain": [
+   0.13,
+   0.203
+  ],
+  "within_cuisine": [
+   0.132,
+   0.197
+  ]
+ },
+ "zed|wait": {
+  "plain": [
+   0.288,
+   0.004
+  ],
+  "within_cuisine": [
+   0.314,
+   0.002
+  ]
+ }
+}

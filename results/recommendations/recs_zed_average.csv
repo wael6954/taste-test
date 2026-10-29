@@ -1,0 +1,16 @@
+k,group_score,zed_pct,zed_rated,spread,name,family,price,yelp_stars,yelp_reviews
+burgersnfriesforever,0.975,0.975,False,0.0,Burgers n' Fries Forever,burgers_fast,2.0,3.5,82.0
+harvestgreen,0.924,0.924,False,0.0,Harvest Green,burgers_fast,2.0,4.6,50.0
+plazapremiumlounge,0.918,0.918,False,0.0,"Plaza Premium Lounge (Domestic Departures, Terminal 3)",american_other,,2.8,68.0
+kintaroizakaya,0.907,0.907,False,0.0,Kintaro Izakaya,japanese,3.0,4.3,295.0
+yakinikulegend,0.901,0.901,False,0.0,Yakiniku Legend,japanese,3.0,4.4,60.0
+milagrocantina,0.89,0.89,False,0.0,Milagro Cantina,mexican_latin,2.0,3.3,261.0
+germandonerkebab,0.856,0.856,False,0.0,German Doner Kebab,middle_eastern,2.0,4.1,50.0
+ikkousharamen,0.839,0.839,False,0.0,Ikkousha Ramen Toronto,japanese,,4.4,392.0
+sassafraz,0.805,0.805,False,0.0,Sassafraz,american_other,3.0,3.7,468.0
+yummyyummydumplings,0.788,0.788,False,0.0,Yummy Yummy Dumplings,chinese,2.0,4.0,347.0
+zaad,0.782,0.782,False,0.0,Zaad,middle_eastern,1.0,4.1,81.0
+evvivabreakfastandlunch,0.743,0.743,False,0.0,Evviva Breakfast and Lunch,cafe_brunch,2.0,3.4,18.0
+earlskitchenbar,0.737,0.737,False,0.0,Earls Kitchen + Bar,bar_pub,3.0,3.6,571.0
+aloette,0.726,0.726,False,0.0,Aloette Restaurant,cafe_brunch,3.0,4.5,383.0
+magicaltasteofchinadowntown,0.715,0.715,False,0.0,Magical Taste of China Downtown,middle_eastern,2.0,4.1,102.0

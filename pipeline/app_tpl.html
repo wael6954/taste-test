@@ -1,0 +1,443 @@
+<title>Beli Taste</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f4ef;--card:#fffdf9;--ink:#1c1a17;--ink2:#56524b;--ink3:#8a857b;--line:#e4dfd5;--grid:#ece8df;--chip:#efebe3;--scene:#fbfaf6;
+ --wael:#2a78d6;--zed:#eb6834;--both:#6250d6;--good:#008300;--bad:#c2410c;--lo:#2a78d6;--mid:#cfcabd;--hi:#eb6834;
+ --a-food:#eb6834;--a-service:#2a78d6;--a-wait:#1baf7a;--a-price:#eda100;--a-place:#6250d6;--a-overall:#8a857b}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#131210;--card:#1c1b18;--ink:#f0efec;--ink2:#c3c2b7;--ink3:#8f8c84;--line:#2f2d29;--grid:#292724;--chip:#26241f;--scene:#161513;
+ --wael:#3987e5;--zed:#d95926;--both:#9085e9;--good:#3fa34d;--bad:#e2774b;--lo:#3987e5;--mid:#5b5850;--hi:#d95926;
+ --a-food:#d95926;--a-service:#3987e5;--a-wait:#199e70;--a-price:#c98500;--a-place:#9085e9;--a-overall:#8f8c84;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#131210;--card:#1c1b18;--ink:#f0efec;--ink2:#c3c2b7;--ink3:#8f8c84;--line:#2f2d29;--grid:#292724;--chip:#26241f;--scene:#161513;
+ --wael:#3987e5;--zed:#d95926;--both:#9085e9;--good:#3fa34d;--bad:#e2774b;--lo:#3987e5;--mid:#5b5850;--hi:#d95926;
+ --a-food:#d95926;--a-service:#3987e5;--a-wait:#199e70;--a-price:#c98500;--a-place:#9085e9;--a-overall:#8f8c84;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:1120px;margin:0 auto;padding-block:32px 72px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.kicker{font:500 11px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+h1{font:650 clamp(32px,5vw,48px)/1.04 Fraunces,Georgia,serif;margin:0 0 10px;letter-spacing:-.01em;text-wrap:balance}
+h2{font:600 22px/1.2 Fraunces,Georgia,serif;margin:0 0 6px;text-wrap:balance}
+h3{font:600 15px/1.3 Inter,sans-serif;margin:0 0 6px}
+.lede{color:var(--ink2);max-width:68ch;margin:0}
+.sub{color:var(--ink2);margin:0 0 16px;max-width:72ch;font-size:14.5px}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:24px 0}
+.stats{background:var(--card)}.stat{box-shadow:0 0 0 .5px var(--line);background:var(--card);padding:12px 16px;min-width:0}.stat b{display:block;font:600 23px/1.15 Fraunces,serif}.stat span{color:var(--ink3);font-size:12.5px}
+nav.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+nav.tabs a{border:1px solid var(--line);background:var(--card);color:var(--ink2);border-radius:999px;padding:8px 16px;font:500 14px Inter,sans-serif;text-decoration:none}
+nav.tabs a[aria-current=page]{background:var(--ink);color:var(--card);border-color:var(--ink)}
+section.view{display:flex;flex-direction:column;gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;min-width:0}
+.ctrl{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.ctrl label{font-size:12px;color:var(--ink3);display:flex;flex-direction:column;gap:4px;min-width:0;max-width:100%}
+#area{width:min(320px,100%)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;flex-wrap:wrap}
+.seg button{background:transparent;border:0;padding:7px 12px;font:500 13px Inter,sans-serif;color:var(--ink2);cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--card)}
+select,input[type=search]{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:7px 10px;font:500 13px Inter,sans-serif;max-width:100%}
+input[type=search]{min-width:0;width:180px}
+.rulehelp{font-size:13px;color:var(--ink3);margin:-4px 0 12px;max-width:80ch}
+.list{display:flex;flex-direction:column}
+.row{display:grid;grid-template-columns:34px minmax(0,1fr) 220px;gap:14px;padding:12px 4px;border-top:1px solid var(--grid);align-items:start}
+.row:first-child{border-top:0}
+.rk{font:600 18px/1.2 Fraunces,serif;color:var(--ink3);text-align:right}
+.nm{font-weight:600;font-size:15.5px}
+.meta{font-size:12.5px;color:var(--ink3);margin-top:1px}
+.why{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.why span{font-size:12px;padding:2px 8px;border-radius:7px;background:var(--chip);color:var(--ink2)}
+.tag-new{font:500 10.5px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--both);border:1px solid currentColor;border-radius:5px;padding:0 5px;margin-left:6px;vertical-align:2px}
+.sc{display:flex;flex-direction:column;gap:5px}
+.sb{display:grid;grid-template-columns:38px 1fr 30px;gap:6px;align-items:center;font-size:12px;color:var(--ink2)}
+.track{height:8px;border-radius:4px;background:var(--grid);position:relative;overflow:hidden}
+.fill{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
+.fill.pred{opacity:.55}
+.sb .v{font:500 12px "JetBrains Mono",monospace;text-align:right;color:var(--ink)}
+.sb .rated{color:var(--good)}
+.grp{font:600 12px Inter;color:var(--ink);display:flex;justify-content:space-between;border-bottom:1px dashed var(--line);padding-bottom:3px}
+.more{margin-top:12px}
+button.btn{background:var(--chip);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px 14px;font:500 13px Inter,sans-serif;cursor:pointer}
+.empty{color:var(--ink3);padding:20px 4px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--ink2);margin-top:10px;align-items:center}
+.sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.two>*{min-width:0}
+@media (max-width:780px){.two{grid-template-columns:1fr}.row{grid-template-columns:26px minmax(0,1fr)}.row .sc{grid-column:2}}
+svg{display:block;max-width:100%;height:auto;overflow:visible}
+svg text{fill:var(--ink2);font:12px Inter,sans-serif}
+svg .lab{fill:var(--ink)}
+svg .sm{font:11px "JetBrains Mono",monospace;fill:var(--ink3)}
+.clus{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.cc{border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
+.cc p{margin:4px 0;font-size:13px;color:var(--ink2)}
+.cc .m{font-size:12.5px;color:var(--ink3)}
+.plot{width:100%;height:min(70vh,620px);min-height:400px}
+.read{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:12px}
+.read div{background:var(--chip);border-radius:10px;padding:10px 12px;font-size:13.5px;color:var(--ink2)}
+.read b{color:var(--ink);display:block;font-weight:600;margin-bottom:2px}
+.ramp{display:inline-block;width:120px;height:10px;border-radius:5px;vertical-align:-1px;margin:0 6px;background:linear-gradient(90deg,var(--lo),var(--mid),var(--hi))}
+.head{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:flex-start;margin-bottom:8px}
+.head>div:first-child{min-width:0;max-width:64ch}
+/* pipeline */
+.flow{display:flex;flex-direction:column;gap:0;position:relative}
+.stage{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;position:relative}
+.stage .dot{width:34px;height:34px;border-radius:50%;background:var(--card);border:2px solid var(--ink3);display:grid;place-items:center;font:600 13px "JetBrains Mono",monospace;color:var(--ink2);z-index:1;margin-top:14px}
+.stage.done .dot{border-color:var(--good);color:var(--good)}
+.stage:not(:last-child)::before{content:"";position:absolute;left:16px;top:48px;bottom:-14px;width:2px;background:var(--line)}
+.stage details{border:1px solid var(--line);border-radius:12px;background:var(--card);margin:8px 0;min-width:0}
+.stage summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.stage summary::-webkit-details-marker{display:none}
+.stage summary b{font-size:15px}
+.stage summary .where{font:500 11px "JetBrains Mono",monospace;color:var(--ink3);letter-spacing:.04em}
+.stage summary .k{margin-left:auto;font-size:12.5px;color:var(--ink2)}
+.stage .body{padding:0 16px 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px 18px;font-size:13.5px;color:var(--ink2)}
+.stage .body h4{font:500 11px "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin:0 0 4px}
+.stage .body p,.stage .body ul{margin:0}.stage .body ul{padding-left:18px}
+.stage .body code{font:12px "JetBrains Mono",monospace;background:var(--chip);padding:1px 5px;border-radius:5px;word-break:break-word}
+.stage .q{border-left:3px solid var(--both);padding-left:10px}
+.chk{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--ink2);grid-column:1/-1}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{font:500 11px/1.3 "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:8px 10px;border-bottom:1px solid var(--grid);vertical-align:top}
+td.num{font-family:"JetBrains Mono",monospace;font-size:12.5px;white-space:nowrap}
+.tw{overflow-x:auto}
+.ok{color:var(--good)}.warn{color:var(--bad)}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--card);font-size:12px;padding:6px 9px;border-radius:7px;opacity:0;transition:opacity .1s;max-width:280px;z-index:5}
+[hidden]{display:none!important}
+.foot{color:var(--ink3);font-size:12.5px;margin-top:28px;max-width:80ch}
+</style>
+<div class="wrap">
+<div class="kicker">Beli taste · v4 · Toronto · <span id="kdate"></span></div>
+<h1>Where should we eat?</h1>
+<p class="lede">A model trained on Wael's and Z's Beli rankings, reading how Yelp reviewers describe each place. It scores places neither of you has been to, explains why, and combines both tastes into one list.</p>
+<div class="stats" id="stats"></div>
+<nav class="tabs" aria-label="Sections">
+  <a href="#picks" data-v="picks">Picks</a><a href="#taste" data-v="taste">Taste</a><a href="#space" data-v="space">3D</a><a href="#pipeline" data-v="pipeline">Pipeline</a><a href="#checks" data-v="checks">Checks</a>
+</nav>
+
+<!-- ============ PICKS ============ -->
+<section class="view" id="v-picks">
+ <div class="card">
+  <div class="ctrl">
+   <label>For<div class="seg" id="who"><button data-v="both" aria-pressed="true">Both of us</button><button data-v="wael" aria-pressed="false">Wael</button><button data-v="zed" aria-pressed="false">Z</button></div></label>
+   <label id="rulebox">Combine by<select id="rule">
+     <option value="avg_nm">Average, skip anything one of us would hate</option>
+     <option value="avg">Plain average</option>
+     <option value="min">Least misery (the less keen person decides)</option>
+     <option value="mult">Multiply (punishes any weak score)</option>
+     <option value="borda">Borda (sum of ranks)</option></select></label>
+   <label>Show<div class="seg" id="scope"><button data-v="new" aria-pressed="true">Not been yet</button><button data-v="been" aria-pressed="false">Been (test the model)</button><button data-v="all" aria-pressed="false">Everything</button></div></label>
+  </div>
+  <div class="ctrl">
+   <label>Area<select id="area"></select></label>
+   <label>Price<select id="price"><option value="">Any</option><option value="1">$</option><option value="2">$$</option><option value="3">$$$</option><option value="4">$$$$</option></select></label>
+   <label>Search<input type="search" id="q" placeholder="name"></label>
+  </div>
+  <p class="rulehelp" id="rulehelp"></p>
+  <div class="list" id="list"></div>
+  <div class="more"><button class="btn" id="morebtn">Show 20 more</button></div>
+  <div class="legend"><span><i class="sw" style="background:var(--wael)"></i>Wael</span><span><i class="sw" style="background:var(--zed)"></i>Z</span><span>solid bar: their own Beli rank · faded bar: model's guess</span><span>scores are percentiles, 0 to 100, within each person's own list</span></div>
+ </div>
+</section>
+
+<!-- ============ TASTE ============ -->
+<section class="view" id="v-taste" hidden>
+ <div class="card">
+  <h2>What moves each of you</h2>
+  <p class="sub">Correlation between how a place is described and where it sits on your list. Bars right of the line: the more reviewers say this, the higher you rank it. Solid bars are unlikely to be chance (p &lt; 0.05).</p>
+  <div id="drivers"></div>
+  <div class="legend"><span><i class="sw" style="background:var(--wael)"></i>Wael</span><span><i class="sw" style="background:var(--zed)"></i>Z</span><span><i class="sw" style="background:var(--ink3);opacity:.35"></i>faded: not significant</span></div>
+ </div>
+ <div class="two">
+  <div class="card"><h2>Wael in one line</h2><p class="sub" id="sum-wael"></p></div>
+  <div class="card"><h2>Z in one line</h2><p class="sub" id="sum-zed"></p></div>
+ </div>
+ <div class="card">
+  <h2>Six kinds of restaurant</h2>
+  <p class="sub">Groups found from review language alone, overlapping (a place can be partly in two). The numbers are each person's average percentile for places in that group, so you can see which kinds you each favour.</p>
+  <div class="clus" id="clus"></div>
+ </div>
+ <div class="card">
+  <h2>Topics the model reads</h2>
+  <p class="sub">166 topics found in 37,509 review sentences, split by positive, neutral and negative. The biggest in each aspect:</p>
+  <div class="tw"><table id="topics"></table></div>
+ </div>
+</section>
+
+<!-- ============ 3D ============ -->
+<section class="view" id="v-space" hidden>
+ <div class="card">
+  <div class="head"><div><h2 id="s3title">Where each restaurant sits</h2><p class="sub" id="s3sub"></p></div>
+   <div class="ctrl" style="margin:0"><div class="seg" id="s3view"><button data-v="space" aria-pressed="true">Taste space</button><button data-v="land" aria-pressed="false">Landscape</button><button data-v="gal" aria-pressed="false">Review galaxy</button></div>
+   <div class="seg" id="s3who"><button data-v="wael" aria-pressed="true">Wael</button><button data-v="zed" aria-pressed="false">Z</button><button data-v="both" aria-pressed="false">Both</button></div></div></div>
+  <div id="plot3" class="plot"></div>
+  <div class="legend" id="leg3"></div>
+  <div class="read" id="read3"></div>
+ </div>
+</section>
+
+<!-- ============ PIPELINE ============ -->
+<section class="view" id="v-pipeline" hidden>
+ <div class="card">
+  <h2>The pipeline, stage by stage</h2>
+  <p class="sub">Open a stage to see what goes in, what comes out, the numbers to sanity-check, the decision we made there, and what is still open. Tick a stage once you have looked at it (saved in this browser only). The same walkthrough is in <code class="mono">PIPELINE.md</code> in the repo.</p>
+  <div class="flow" id="flow"></div>
+ </div>
+</section>
+
+<!-- ============ CHECKS ============ -->
+<section class="view" id="v-checks" hidden>
+ <div class="card">
+  <h2>Does it predict anything?</h2>
+  <p class="sub">Each method ranks places it has not seen (5-fold, repeated 5 times). The number is the Spearman correlation between predicted and actual rank. The dashed line is what random guessing reaches 5% of the time; a method has to clear it to count.</p>
+  <div class="two"><div id="val-wael"></div><div id="val-zed"></div></div>
+ </div>
+ <div class="two">
+  <div class="card"><h3>Permutation test</h3><p class="sub" id="perm"></p></div>
+  <div class="card"><h3>Frozen topics for new places</h3><p class="sub" id="frz"></p></div>
+  <div class="card"><h3>Crowd check</h3><p class="sub" id="crowd"></p></div>
+  <div class="card"><h3>Sentences vs. opinion units</h3><p class="sub" id="ou"></p></div>
+ </div>
+</section>
+
+<p class="foot">Built from Beli lists and public Yelp reviews. Yelp stars are shown only as a check; the model never sees them. No review text is published here.</p>
+</div>
+<div class="tip" id="tip"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.27.0/plotly.min.js"></script>
+<script>
+const D = __DATA__;
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const P100 = v => v == null ? '-' : Math.round(v * 100);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const NAME = { wael: 'Wael', zed: 'Z', both: 'both of you' };
+const tip = $('#tip');
+function showTip(e, html) { tip.innerHTML = html; tip.style.opacity = 1; const x = Math.min(e.clientX + 12, innerWidth - 290); tip.style.left = x + 'px'; tip.style.top = (e.clientY + 14) + 'px'; }
+function hideTip() { tip.style.opacity = 0; }
+function seg(id, fn) { $$(`#${id} button`).forEach(b => b.onclick = () => { $$(`#${id} button`).forEach(x => x.setAttribute('aria-pressed', x === b)); fn(b.dataset.v); }); }
+function setSeg(id, v) { $$(`#${id} button`).forEach(x => x.setAttribute('aria-pressed', x.dataset.v === v)); }
+function store(k, v) { try { if (v === undefined) return JSON.parse(localStorage.getItem('bt_' + k)); localStorage.setItem('bt_' + k, JSON.stringify(v)); } catch (e) { return null; } }
+
+// ---------- header ----------
+const S = D.stats, nNew = D.places.filter(p => p.new).length;
+$('#kdate').textContent = 'Oct 2026';
+$('#stats').innerHTML = [
+  [S.rated_with_features, 'places you have ranked, with reviews'], [nNew, 'new places scored'], [S.reviews.toLocaleString(), 'Yelp reviews read'],
+  [S.sentences.toLocaleString(), 'review sentences'], [D.choice.wael.held_out.spearman.toFixed(2) + ' / ' + D.choice.zed.held_out.spearman.toFixed(2), 'held-out accuracy, Wael / Z (Spearman)']
+].map(([b, s]) => `<div class="stat"><b>${b}</b><span>${s}</span></div>`).join('');
+
+// ---------- picks ----------
+const ASP = { flavor: 'the food', quality: 'ingredients', portions: 'portions', service: 'service', wait: 'lines and waits', logistics: 'ordering and logistics', value: 'price and value',
+  ambience: 'the room', location: 'the location', occasion: 'occasions', overall: 'coming back', menu: 'the menu' };
+function phrase(feat, w) {
+  const kind = feat.startsWith('net_') ? 'net_' : 'talk_', a = feat.slice(kind.length), hi = D.coef[w][feat] > 0;  // contribution > 0 so feature sits on the side the person likes
+  if (kind === 'net_') return hi ? `praise for ${ASP[a]}` : `few raves about ${ASP[a]}`;
+  return hi ? `talk about ${ASP[a]}` : `little talk about ${ASP[a]}`;
+}
+const RULES = {
+  avg: { f: (a, b) => (a + b) / 2, h: 'The mean of the two scores. Simple, but one strong fan can carry a place the other would dislike.' },
+  avg_nm: { f: (a, b) => Math.min(a, b) < 0.35 ? null : (a + b) / 2, h: 'The mean, but places where either of you lands below 35 are dropped. A good default for picking somewhere together.' },
+  min: { f: (a, b) => Math.min(a, b), h: 'Ranked by the lower of the two scores, so the top places are ones neither of you would mind.' },
+  mult: { f: (a, b) => a * b, h: 'The product of the two scores. A weak score for either person sinks a place quickly.' },
+  borda: { f: null, h: 'Each of you ranks the candidate places; the ranks are added. Ignores how big the gaps are, only the order.' }
+};
+let who = store('who') || 'both', rule = store('rule') || 'avg_nm', scope = 'new', shown = 20;
+const sc = (p, w) => p[w] != null ? { v: p[w], rated: true } : { v: p[w + '_pred'], rated: false };
+const areas = {}; D.places.forEach(p => { if (p.hood) areas[p.hood] = (areas[p.hood] || 0) + 1; });
+$('#area').innerHTML = '<option value="">Anywhere</option>' + Object.entries(areas).sort((a, b) => b[1] - a[1]).map(([a, n]) => `<option value="${esc(a)}">${esc(a)} (${n})</option>`).join('');
+function candidates() {
+  const area = $('#area').value, price = $('#price').value, q = $('#q').value.trim().toLowerCase();
+  return D.places.filter(p => {
+    const been = who === 'both' ? (p.wael != null || p.zed != null) : p[who] != null;
+    if (scope === 'new' && been) return false;
+    if (scope === 'been' && !been) return false;
+    if (area && p.hood !== area) return false;
+    if (price && String(p.price) !== price) return false;
+    if (q && !p.name.toLowerCase().includes(q)) return false;
+    return true;
+  });
+}
+function ranked() {
+  const C = candidates();
+  if (who !== 'both') return C.map(p => ({ p, s: sc(p, who).v })).sort((a, b) => b.s - a.s);
+  if (rule === 'borda') {
+    const rk = w => { const o = [...C].sort((a, b) => sc(a, w).v - sc(b, w).v); const m = new Map(); o.forEach((p, i) => m.set(p.k, i)); return m; };
+    const rw = rk('wael'), rz = rk('zed'), n = Math.max(1, 2 * (C.length - 1));
+    return C.map(p => ({ p, s: (rw.get(p.k) + rz.get(p.k)) / n })).sort((a, b) => b.s - a.s);
+  }
+  return C.map(p => ({ p, s: RULES[rule].f(sc(p, 'wael').v, sc(p, 'zed').v) })).filter(x => x.s != null).sort((a, b) => b.s - a.s);
+}
+function bar(p, w) {
+  const s = sc(p, w);
+  return `<div class="sb"><span>${NAME[w]}</span><span class="track"><span class="fill ${s.rated ? '' : 'pred'}" style="width:${Math.max(2, s.v * 100)}%;background:var(--${w})"></span></span><span class="v ${s.rated ? 'rated' : ''}" title="${s.rated ? 'their own Beli rank' : 'model prediction'}">${P100(s.v)}</span></div>`;
+}
+function whyChips(p) {
+  const ws = who === 'both' ? ['wael', 'zed'] : [who], seen = new Set(), out = [];
+  for (const w of ws) for (const [f] of (p.why[w] || []).slice(0, 2)) { const t = phrase(f, w); if (!seen.has(t)) { seen.add(t); out.push(t); } }
+  return out.slice(0, 4).map(t => `<span>${esc(t)}</span>`).join('');
+}
+function drawList() {
+  $('#rulebox').hidden = who !== 'both';
+  $('#rulehelp').textContent = who === 'both' ? RULES[rule].h : `Ranked by ${NAME[who]}'s score: their own Beli percentile where they have been, the model's guess where they have not.`;
+  const R = ranked(), L = R.slice(0, shown);
+  $('#list').innerHTML = L.length ? L.map(({ p, s }, i) => {
+    const price = p.price ? '$'.repeat(p.price) : '', meta = [p.hood, price, p.stars ? `Yelp ${p.stars}★` : ''].filter(Boolean).join(' · ');
+    const grp = who === 'both' ? `<div class="grp"><span>Together</span><span class="mono">${rule === 'borda' ? P100(s) : P100(s)}</span></div>` : '';
+    const realVsPred = scope !== 'new' && who !== 'both' && p[who] != null ? `<div class="meta">model guessed ${P100(p[who + '_pred'])}</div>` : '';
+    return `<div class="row"><div class="rk">${i + 1}</div><div style="min-width:0"><div class="nm">${esc(p.name)}${p.new ? '<span class="tag-new">new</span>' : ''}</div><div class="meta">${esc(meta)}${p.cl ? ' · ' + esc(p.cl) : ''}</div><div class="why">${whyChips(p)}</div></div>
+      <div class="sc">${grp}${who === 'both' ? bar(p, 'wael') + bar(p, 'zed') : bar(p, who)}${realVsPred}</div></div>`;
+  }).join('') : '<div class="empty">Nothing matches these filters.</div>';
+  $('#morebtn').hidden = R.length <= shown;
+  $('#morebtn').textContent = `Show 20 more (${R.length - shown} left)`;
+}
+seg('who', v => { who = v; store('who', v); shown = 20; drawList(); });
+seg('scope', v => { scope = v; shown = 20; drawList(); });
+setSeg('who', who); $('#rule').value = rule;
+$('#rule').onchange = e => { rule = e.target.value; store('rule', rule); drawList(); };
+['area', 'price'].forEach(id => $('#' + id).onchange = () => { shown = 20; drawList(); });
+$('#q').oninput = () => { shown = 20; drawList(); };
+$('#morebtn').onclick = () => { shown += 20; drawList(); };
+
+// ---------- taste ----------
+const ANAME = { flavor: 'Food praised', quality: 'Ingredients / quality', portions: 'Portions', service: 'Service', wait: 'Worth the wait', logistics: 'Ordering & logistics',
+  value: 'Price & value', ambience: 'Atmosphere', location: 'Location', occasion: 'Occasions', overall: 'Would return', menu: 'Menu' };
+function drawDrivers() {
+  const rows = D.A.wael.map(a => ({ a: a.a, w: a, z: D.A.zed.find(x => x.a === a.a) })).sort((x, y) => (y.w.r + y.z.r) - (x.w.r + x.z.r));
+  const W = 760, lw = 170, rh = 34, H = rows.length * rh + 30, x0 = lw + (W - lw - 20) / 2, sx = v => x0 + v / 0.45 * (W - lw - 20) / 2;
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Aspect correlations per person">`;
+  for (const t of [-0.4, -0.2, 0, 0.2, 0.4]) s += `<line x1="${sx(t)}" x2="${sx(t)}" y1="0" y2="${H - 22}" stroke="var(--${t === 0 ? 'ink3' : 'grid'})"/><text class="sm" x="${sx(t)}" y="${H - 6}" text-anchor="middle">${t > 0 ? '+' : ''}${t.toFixed(1)}</text>`;
+  rows.forEach((r, i) => {
+    const y = i * rh + 4;
+    s += `<text class="lab" x="${lw - 10}" y="${y + 17}" text-anchor="end">${ANAME[r.a] || r.a}</text>`;
+    [['wael', r.w, 0], ['zed', r.z, 13]].forEach(([w, v, dy]) => {
+      const a = sx(Math.min(0, v.r)), b = sx(Math.max(0, v.r));
+      s += `<rect x="${a}" y="${y + dy + 2}" width="${Math.max(1, b - a)}" height="11" rx="3" fill="var(--${w})" opacity="${v.p < 0.05 ? 1 : 0.32}" data-t="${NAME[w]} · ${ANAME[r.a]}<br>ρ = ${v.r.toFixed(2)} (p = ${v.p.toFixed(3)})<br>within cuisine: ${v.rw.toFixed(2)}"/>`;
+    });
+  });
+  $('#drivers').innerHTML = s + '</svg>';
+  $$('#drivers rect').forEach(r => { r.onmousemove = e => showTip(e, r.dataset.t); r.onmouseleave = hideTip; });
+  for (const w of ['wael', 'zed']) {
+    const sig = D.A[w].filter(a => a.p < 0.05).sort((a, b) => b.r - a.r).map(a => (ANAME[a.a] || a.a).toLowerCase());
+    $('#sum-' + w).textContent = `Ranks places higher when reviews talk up ${sig.slice(0, 3).join(', ')}${sig.length > 3 ? ` (also ${sig.slice(3).join(', ')})` : ''}. Model accuracy on unseen places: ${D.choice[w].held_out.spearman.toFixed(2)} (random tops out near ${D.V[w].null_sp.toFixed(2)}).`;
+  }
+  $('#clus').innerHTML = D.clusters.map(c => {
+    const nm = ({ c0: 'Popular, worth the wait', c1: 'Cheap and basic', c2: 'Sit-down: ambience & service', c3: 'Flavour-first, slow prep', c4: 'Casual brunch, lunch & dates', c5: 'Complaint-heavy' })[c.cluster];
+    const b = w => `<div class="sb"><span>${NAME[w]}</span><span class="track"><span class="fill" style="width:${c[w] * 100}%;background:var(--${w})"></span></span><span class="v">${P100(c[w])}</span></div>`;
+    return `<div class="cc"><h3>${nm}</h3><p class="m">${c.size} places · ${esc(c.cuisines.replace(/_/g, ' '))}</p><p>Reviews stress: ${esc(c.best_aspects)}</p><p class="m">e.g. ${esc(c.members.split(', ').slice(0, 5).join(', '))}</p><div class="sc" style="margin-top:8px">${b('wael')}${b('zed')}</div></div>`;
+  }).join('');
+  const byTag = {}; D.topics.forEach(t => { if (t.tag !== 'what') (byTag[t.tag] = byTag[t.tag] || []).push(t); });
+  $('#topics').innerHTML = '<tr><th>Aspect</th><th>Positive</th><th>Neutral</th><th>Negative</th></tr>' + Object.keys(byTag).sort().map(tag => {
+    const cell = pol => byTag[tag].filter(t => t.polarity === pol).sort((a, b) => b.n - a.n).slice(0, 3).map(t => `${esc(t.name)} <span class="sm mono" style="color:var(--ink3)">${t.n}</span>`).join('<br>') || '-';
+    return `<tr><td><b>${ANAME[tag] || tag}</b></td><td>${cell('pos')}</td><td>${cell('neu')}</td><td>${cell('neg')}</td></tr>`;
+  }).join('');
+}
+
+// ---------- 3D ----------
+const font = () => ({ family: 'Inter, system-ui, sans-serif', color: css('--ink2'), size: 12 });
+const axis = (title, extra = {}) => Object.assign({ title: { text: title, font: { size: 12, color: css('--ink') } }, gridcolor: css('--grid'), zerolinecolor: css('--ink3'), showbackground: true, backgroundcolor: css('--scene'), tickfont: { size: 10, color: css('--ink3') }, showspikes: false }, extra);
+const cfg = { displaylogo: false, responsive: true, modeBarButtonsToRemove: ['toImage', 'resetCameraLastSave3d'] };
+const ramp = () => [[0, css('--lo')], [0.5, css('--mid')], [1, css('--hi')]];
+const layout = (x, y, z, eye) => ({ paper_bgcolor: 'rgba(0,0,0,0)', font: font(), margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false,
+  hoverlabel: { bgcolor: css('--ink'), font: { color: css('--card'), family: 'Inter' }, bordercolor: css('--ink') },
+  scene: { xaxis: axis(x), yaxis: axis(y), zaxis: axis(z), camera: { eye: eye || { x: 1.55, y: 1.45, z: 0.85 } }, aspectmode: 'cube' } });
+let v3 = 'space', w3 = 'wael';
+const s3 = (p, w) => w === 'both' ? { v: (sc(p, 'wael').v + sc(p, 'zed').v) / 2, rated: p.wael != null || p.zed != null } : sc(p, w);
+const hov = p => `<b>${esc(p.name)}</b>${p.new ? ' · new' : ''}<br>Wael ${P100(sc(p, 'wael').v)}${p.wael != null ? ' (rated)' : ' (predicted)'}<br>Z ${P100(sc(p, 'zed').v)}${p.zed != null ? ' (rated)' : ' (predicted)'}`;
+function drawSpace() {
+  const groups = [['rated', p => !p.new && s3(p, w3).rated, { size: 6.5, symbol: 'circle' }], ['guess', p => !p.new && !s3(p, w3).rated, { size: 4.5, symbol: 'circle-open' }], ['new', p => p.new, { size: 4.5, symbol: 'diamond' }]];
+  const tr = groups.map(([, f, m]) => { const ps = D.places.filter(f); return { type: 'scatter3d', mode: 'markers', x: ps.map(p => p.x), y: ps.map(p => p.y), z: ps.map(p => p.z),
+    marker: { ...m, color: ps.map(p => s3(p, w3).v), cmin: 0, cmax: 1, colorscale: ramp(), opacity: 0.92, ...(m.symbol !== 'circle-open' ? { line: { width: 0.5, color: css('--card') } } : {}) },
+    text: ps.map(hov), hovertemplate: '%{text}<extra></extra>' }; });
+  Plotly.react('plot3', tr, layout('Food praise →', 'Service praise →', 'Talk about lines →', { x: 0.55, y: -1.55, z: 0.6 }), cfg);
+  $('#s3title').textContent = 'Where each restaurant sits';
+  $('#s3sub').textContent = 'Each dot is a restaurant, placed by how much reviewers praise its food, how much they praise its service, and how much they talk about lining up for it. Colour is how much the selected person likes it.';
+  $('#leg3').innerHTML = `<span>dislike<span class="ramp"></span>love</span><span>● been (own rank)</span><span>○ not been (model's guess)</span><span>◆ new place from Yelp</span>`;
+  const P = D.places, m = a => Math.round(a.reduce((s, p) => s + s3(p, w3).v, 0) / a.length * 100);
+  $('#read3').innerHTML = `<div><b>Food praise matters</b>Places in the right third average ${m(P.filter(p => p.x > 0.5))} for ${NAME[w3]}, the left third ${m(P.filter(p => p.x < -0.5))}.</div><div><b>How to read it</b>Warm colours gather toward praised food and praised service. Drag to rotate, scroll to zoom.</div>`;
+}
+function drawLand() {
+  const w = w3 === 'both' ? 'wael' : w3, Sx = D.surf[w], g = Sx.grid;
+  if (w3 === 'both') setSeg('s3who', 'wael'), w3 = 'wael';
+  const surf = { type: 'surface', x: g, y: g, z: Sx.z, colorscale: ramp(), cmin: 0.3, cmax: 0.7, opacity: 0.82, showscale: false, hovertemplate: 'food praise %{x:.1f}<br>line talk %{y:.1f}<br>predicted %{z:.2f}<extra></extra>' };
+  const ps = D.places.filter(p => p[w] != null);
+  const dots = { type: 'scatter3d', mode: 'markers', x: ps.map(p => Math.max(-2.5, Math.min(2.5, p.x))), y: ps.map(p => Math.max(-2.5, Math.min(2.5, p.z))), z: ps.map(p => p[w]),
+    marker: { size: 4, color: ps.map(p => p[w]), cmin: 0, cmax: 1, colorscale: ramp(), line: { width: 0.5, color: css('--card') } },
+    text: ps.map(p => `<b>${esc(p.name)}</b><br>own rank ${P100(p[w])} · model ${P100(p[w + '_pred'])}`), hovertemplate: '%{text}<extra></extra>' };
+  Plotly.react('plot3', [surf, dots], layout('Food praise →', 'Talk about lines →', 'Rank (0 to 1)', { x: 0.6, y: -1.6, z: 0.65 }), cfg);
+  $('#s3title').textContent = `The shape of ${NAME[w]}'s taste`;
+  $('#s3sub').textContent = 'The surface is the model: height is how high a place would rank, given its food praise and how much people talk about the wait, with everything else at average. Dots are real ratings.';
+  $('#leg3').innerHTML = `<span>lower<span class="ramp"></span>higher</span>`;
+  const top = Object.entries(D.coef[w]).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1])).slice(0, 4).map(([k, v]) => `${k.startsWith('net') ? 'praise for' : 'talk about'} ${ASP[k.replace(/^(net|talk)_/, '')]} ${v > 0 ? '↑' : '↓'}`);
+  $('#read3').innerHTML = `<div><b>Strongest weights</b>${top.join(' · ')}</div><div><b>Dots above the surface</b>Places liked more than the reviews predict. Below: places the reviews oversell.</div>`;
+}
+const BUCKET = { flavor: 'Food', quality: 'Food', portions: 'Food', what: 'Food', service: 'Service', wait: 'Wait & ordering', logistics: 'Wait & ordering', value: 'Price', ambience: 'Place & occasion', location: 'Place & occasion', occasion: 'Place & occasion', overall: 'Overall & menu', menu: 'Overall & menu' };
+const BCOL = { 'Food': '--a-food', 'Service': '--a-service', 'Wait & ordering': '--a-wait', 'Price': '--a-price', 'Place & occasion': '--a-place', 'Overall & menu': '--a-overall' };
+function drawGal() {
+  const G = D.galaxy, groups = {};
+  G.x.forEach((_, i) => { const k = BUCKET[G.tag[i]] || 'Overall & menu'; (groups[k] = groups[k] || []).push(i); });
+  const tr = Object.entries(groups).map(([k, ix]) => ({ type: 'scatter3d', mode: 'markers', x: ix.map(i => G.x[i]), y: ix.map(i => G.y[i]), z: ix.map(i => G.z[i]),
+    marker: { size: 1.9, color: css(BCOL[k]), opacity: 0.75 }, text: ix.map(i => `<b>${esc(G.topic[i])}</b>${G.text && G.text[i] ? '<br>' + esc(G.text[i]) : ''}<br>${G.pol[i]}`), hovertemplate: '%{text}<extra></extra>' }));
+  const lb = G.labels.slice(0, 14);
+  tr.push({ type: 'scatter3d', mode: 'text', x: lb.map(l => l.x), y: lb.map(l => l.y), z: lb.map(l => l.z), text: lb.map(l => l.name), textfont: { size: 12, color: css('--ink'), family: 'Inter' }, hoverinfo: 'skip' });
+  const L = layout('', '', '', { x: 0.75, y: 0.75, z: 0.5 });
+  for (const a of ['xaxis', 'yaxis', 'zaxis']) Object.assign(L.scene[a], { showticklabels: false, title: { text: '' }, showbackground: false, gridcolor: 'rgba(0,0,0,0)', zerolinecolor: 'rgba(0,0,0,0)' });
+  Plotly.react('plot3', tr, L, cfg);
+  $('#s3title').textContent = 'Every review sentence, mapped';
+  $('#s3sub').textContent = `${G.x.length.toLocaleString()} sentences from the Yelp reviews. Sentences that say similar things sit close together, so each cloud is a topic. Labels mark the biggest ones.`;
+  $('#leg3').innerHTML = Object.keys(groups).sort().map(k => `<span><i class="sw" style="background:var(${BCOL[k]});border-radius:50%"></i>${k} <span style="color:var(--ink3)">${groups[k].length.toLocaleString()}</span></span>`).join('');
+  $('#read3').innerHTML = `<div><b>Why food dominates</b>Most pulled reviews are 5-star, and they mostly describe dishes.</div>`;
+}
+const draw3 = () => { if (!window.Plotly) { $('#plot3').innerHTML = '<p class="sub">The 3D library did not load. Check your connection and reload.</p>'; return; } $('#s3who').hidden = v3 === 'gal'; ({ space: drawSpace, land: drawLand, gal: drawGal })[v3](); };
+seg('s3view', v => { v3 = v; draw3(); }); seg('s3who', v => { w3 = v; draw3(); });
+
+// ---------- pipeline ----------
+const STAGES = __STAGES__;
+function drawFlow() {
+  const done = store('reviewed') || {};
+  $('#flow').innerHTML = STAGES.map((s, i) => `<div class="stage ${done[s.id] ? 'done' : ''}" data-id="${s.id}"><div class="dot">${done[s.id] ? '✓' : i + 1}</div>
+   <details><summary><b>${esc(s.name)}</b><span class="where">${esc(s.where)}</span><span class="k">${esc(s.key)}</span></summary><div class="body">
+   <div><h4>What it does</h4><p>${s.what}</p></div><div><h4>In → out</h4><p>${s.io}</p></div>
+   <div><h4>Check</h4><ul>${s.check.map(c => `<li>${c}</li>`).join('')}</ul></div><div><h4>Decided</h4><p>${s.decided}</p></div>
+   <div class="q"><h4>Open question</h4><p>${s.open}</p></div><div><h4>Run</h4><p><code>${esc(s.run)}</code></p></div>
+   <label class="chk"><input type="checkbox" ${done[s.id] ? 'checked' : ''}> Reviewed</label></div></details></div>`).join('');
+  $$('#flow .chk input').forEach(cb => cb.onchange = () => { const id = cb.closest('.stage').dataset.id, d = store('reviewed') || {}; d[id] = cb.checked; store('reviewed', d); const st = cb.closest('.stage'); st.classList.toggle('done', cb.checked); st.querySelector('.dot').textContent = cb.checked ? '✓' : STAGES.findIndex(s => s.id === id) + 1; });
+}
+
+// ---------- checks ----------
+function drawVal(w) {
+  const V = D.V[w], rows = [...V.rows].sort((a, b) => b.sp - a.sp), W = 520, lw = 190, rh = 28, H = rows.length * rh + 34, sx = v => lw + Math.max(0, v + 0.15) / 0.6 * (W - lw - 40);
+  let s = `<h3 style="color:var(--${w})">${NAME[w]} · ${V.n} places</h3><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${NAME[w]} validation">`;
+  for (const t of [-0.1, 0, 0.1, 0.2, 0.3, 0.4]) s += `<line x1="${sx(t)}" x2="${sx(t)}" y1="0" y2="${H - 24}" stroke="var(--${t === 0 ? 'ink3' : 'grid'})"/><text class="sm" x="${sx(t)}" y="${H - 8}" text-anchor="middle">${t.toFixed(1)}</text>`;
+  rows.forEach((r, i) => { const y = i * rh + 4, best = r.m.startsWith('Aspects + talk'), a = sx(Math.min(0, r.sp)), b = sx(Math.max(0, r.sp));
+    s += `<text class="${best ? 'lab' : ''}" x="${lw - 10}" y="${y + 14}" text-anchor="end" ${best ? 'font-weight="600"' : ''}>${esc(r.m)}</text><rect x="${a}" y="${y + 4}" width="${Math.max(1, b - a)}" height="14" rx="3" fill="var(--${best ? w : 'ink3'})" opacity="${best ? 1 : 0.5}" data-t="${esc(r.m)}<br>Spearman ${r.sp.toFixed(3)} · top-third AUC ${r.auc.toFixed(3)}"/><text class="sm" x="${b + 6}" y="${y + 15}">${r.sp.toFixed(2)}</text>`; });
+  s += `<line x1="${sx(V.null_sp)}" x2="${sx(V.null_sp)}" y1="0" y2="${H - 24}" stroke="var(--bad)" stroke-dasharray="4 3"/><text class="sm" x="${sx(V.null_sp) + 4}" y="${H - 26}" style="fill:var(--bad)">random, 95th pct</text></svg>`;
+  $('#val-' + w).innerHTML = s;
+  $$(`#val-${w} rect`).forEach(r => { r.onmousemove = e => showTip(e, r.dataset.t); r.onmouseleave = hideTip; });
+}
+function drawChecks() {
+  drawVal('wael'); drawVal('zed');
+  const pm = w => D.V[w].perm;
+  $('#perm').innerHTML = `Shuffle each person's ratings 200 times and refit the whole model. Real Spearman vs. the 99th percentile of shuffles: Wael <b>${pm('wael').real_spearman.toFixed(2)}</b> vs ${pm('wael').null_99.toFixed(2)}, Z <b>${pm('zed').real_spearman.toFixed(2)}</b> vs ${pm('zed').null_99.toFixed(2)}. <span class="ok">Both p &lt; 0.01.</span>`;
+  const F = D.freeze;
+  $('#frz').innerHTML = `New places are mapped onto the existing topics by nearest neighbours instead of refitting. On ${F.heldout.toLocaleString()} held-out sentences it picks the same topic <b>${Math.round(F.same_topic_when_both_assigned * 100)}%</b> of the time and assigns ${Math.round(F.assigned_share_pred * 100)}% of sentences (original: ${Math.round(F.assigned_share_truth * 100)}%).`;
+  const cc = D.refsum && D.refsum.crowd_check && D.refsum.crowd_check['wael+zed|average'];
+  $('#crowd').innerHTML = cc ? `Yelp stars were never an input. The top 20 new picks for both of you average <b>${cc.top20_mean_stars}★</b> against ${cc.ref_mean_stars}★ for all new places, and prediction vs. stars correlates at ${cc.spearman_pred_vs_stars}. So the model is not just rediscovering the crowd favourite.${cc.top20_below_3_5.length ? ` Below 3.5★ in the top 20: ${esc(cc.top20_below_3_5.join(', '))}.` : ''}` : 'Runs once new places are scored.';
+  const O = D.ou;
+  $('#ou').innerHTML = `On 100 reviews, an LLM pulled ${O.units_per_review} opinions per review; sentence splitting caught <b>${Math.round(O.recall_of_llm_aspects * 100)}%</b> of them at ${Math.round(O.precision_vs_llm * 100)}% precision. Counting dish sentences as food praise caught more but predicted worse, so it was not adopted.`;
+}
+
+// ---------- routing ----------
+const VIEWS = ['picks', 'taste', 'space', 'pipeline', 'checks'], drawn = {};
+function route() {
+  const v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'picks';
+  VIEWS.forEach(x => $('#v-' + x).hidden = x !== v);
+  $$('nav.tabs a').forEach(a => a.dataset.v === v ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
+  if (!drawn[v]) { ({ picks: drawList, taste: drawDrivers, space: draw3, pipeline: drawFlow, checks: drawChecks })[v](); drawn[v] = 1; }
+  else if (v === 'space' && window.Plotly) Plotly.Plots.resize('plot3');
+}
+$$('nav.tabs a').forEach(a => a.onclick = e => { e.preventDefault(); history.replaceState(null, '', '#' + a.dataset.v); route(); });
+addEventListener('hashchange', route);
+route();
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (drawn.space) draw3(); });
+new MutationObserver(() => { if (drawn.space) draw3(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+</script>

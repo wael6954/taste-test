@@ -1,0 +1,1 @@
+{"K": {"topics_sentiment_split": 10, "how_topics+aspects": 6, "aspects_cuisine_relative": 5, "mean_embedding": 10}, "main": "how_topics+aspects", "aspects": ["ambience", "flavor", "location", "logistics", "menu", "occasion", "overall", "portions", "quality", "service", "value", "wait"], "n_rest": 177, "n_sent": 37165}

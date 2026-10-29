@@ -1,0 +1,78 @@
+{
+ "reviews": 100,
+ "llm_units": 465,
+ "units_per_review": 4.65,
+ "sentences": 595,
+ "sentences_per_review": 5.95,
+ "pipeline_sentences_unassigned_or_dish": 0.561,
+ "review_aspects_llm": 393,
+ "review_aspects_pipeline": 208,
+ "recall_of_llm_aspects": 0.387,
+ "precision_vs_llm": 0.731,
+ "polarity_agreement_on_shared": 0.783,
+ "negative_llm_aspects": 66,
+ "negative_recall": 0.394,
+ "by_aspect": {
+  "ambience": {
+   "llm": 33,
+   "found": 10,
+   "pipe_only": 5
+  },
+  "flavor": {
+   "llm": 72,
+   "found": 21,
+   "pipe_only": 6
+  },
+  "location": {
+   "llm": 11,
+   "found": 6,
+   "pipe_only": 8
+  },
+  "logistics": {
+   "llm": 18,
+   "found": 7,
+   "pipe_only": 6
+  },
+  "menu": {
+   "llm": 14,
+   "found": 4,
+   "pipe_only": 3
+  },
+  "occasion": {
+   "llm": 13,
+   "found": 6,
+   "pipe_only": 16
+  },
+  "overall": {
+   "llm": 53,
+   "found": 23,
+   "pipe_only": 3
+  },
+  "portions": {
+   "llm": 23,
+   "found": 5,
+   "pipe_only": 3
+  },
+  "quality": {
+   "llm": 45,
+   "found": 16,
+   "pipe_only": 3
+  },
+  "service": {
+   "llm": 54,
+   "found": 29,
+   "pipe_only": 2
+  },
+  "value": {
+   "llm": 28,
+   "found": 12,
+   "pipe_only": 0
+  },
+  "wait": {
+   "llm": 29,
+   "found": 13,
+   "pipe_only": 1
+  }
+ },
+ "reviews_with_more_units_than_sentences": 31
+}
