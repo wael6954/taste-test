@@ -28,7 +28,7 @@ Ranking places the model has not seen (5-fold, repeated 5 times; Spearman correl
 ## Layout
 
 ```
-index.html       redirects to app/ so GitHub Pages opens the app
+index.html        redirects to app/ so GitHub Pages opens the app
 app/              the web app (single HTML file)
 PIPELINE.md       stage-by-stage review guide: inputs, outputs, checks, decisions, open questions
 pipeline/         all code; see pipeline/README.md for the run order
